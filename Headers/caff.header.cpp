@@ -4,7 +4,7 @@ struct Caff
 {
     byte id;
     int length;
-    byte data[length];
+    byte data[];
 };
 
 struct CaffHeader
