@@ -1,6 +1,11 @@
 #include <string>
 using namespace std;
 
+struct Ciff {
+	CiffHeader ciffHeader;
+	CiffContent ciffContent;
+};
+
 struct CiffHeader
 {
 	char magic[4];

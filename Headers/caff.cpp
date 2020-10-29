@@ -31,5 +31,5 @@ struct CaffCredits
 struct CaffAnimation
 {
 	int duration;
-	CiffContent ciff;
+	Ciff ciff;
 };
