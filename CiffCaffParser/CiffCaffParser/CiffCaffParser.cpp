@@ -62,19 +62,20 @@ int main(int argc, char* argv[])
 	ifstream myfile;
 	try
 	{
-		myfile.open("M:\\Iskola\\MSC\\CiffCaffParser\\CiffCaffParser\\2.caff", ios::in | ios::binary); //Change file destination
+		myfile.open("M:\\Iskola\\MSC\\CiffCaffParser\\CiffCaffParser\\3.caff", ios::in | ios::binary); //Change file destination
 		string mode = argv[2];
 		if (argc > 2 && mode.compare("CAFF") == 0)
 		{
 			CaffBlock cb;
 			myfile.read((char*)&cb.id, 1);
 			myfile.read((char*)&cb.length, 8);
-			cb.data = (char*)malloc(sizeof(&cb.length));
-			myfile.read((char*)&cb.data, sizeof(&cb.length));
+			cb.data = (char*)malloc(cb.length);
+			myfile.read(cb.data, cb.length);
 			CaffHeader ch;
-			memcpy(&ch.magic[0], &cb.data[0], 4);
-			memcpy(&ch.header_size, &cb.data[4], 8);
+			memcpy(&ch.magic, &cb.data[0], 4);
+			memcpy(&ch.header_size, &cb.data[4], 12);
 			memcpy(&ch.num_anim, &cb.data[12], 8);
+
 			free(cb.data);
 			for (int i = 0; i < ch.num_anim + 1; i++)
 			{
@@ -82,25 +83,29 @@ int main(int argc, char* argv[])
 				myfile.read((char*)&cib.id, sizeof(cib.id));
 				myfile.read((char*)&cib.length, sizeof(cib.length));
 				cib.data = (char*)malloc(cib.length);
-				myfile.read((char*)&cib.data, cib.length);
+				myfile.read(cib.data, cib.length);
 				if (cib.id == '\x03')
 				{
-					CaffAnimation ca;
-					memcpy(&ca.duration, &cib.data[0], 8);
-					memcpy(&ca.ciff.ciffHeader.magic[0], &cib.data[8], 4);
-					memcpy(&ca.ciff.ciffHeader.header_size, &cib.data[12], 8);
-					memcpy(&ca.ciff.ciffHeader.content_size, &cib.data[20], 8);
-					memcpy(&ca.ciff.ciffHeader.width, &cib.data[28], 8);
-					memcpy(&ca.ciff.ciffHeader.height, &cib.data[36], 8);
-					ca.ciff.ciffContent.pixels = (char*)malloc(ca.ciff.ciffHeader.content_size);
-					memcpy(&ca.ciff.ciffContent, &cib.data[ca.ciff.ciffHeader.header_size], ca.ciff.ciffHeader.content_size);
+					CaffAnimation ciffAnimation;
+					memcpy(&ciffAnimation.duration, &cib.data[0], 8);
+					memcpy(&ciffAnimation.ciff.ciffHeader.magic[0], &cib.data[8], 4);
+					memcpy(&ciffAnimation.ciff.ciffHeader.header_size, &cib.data[12], 8);
+					memcpy(&ciffAnimation.ciff.ciffHeader.content_size, &cib.data[20], 8);
+					memcpy(&ciffAnimation.ciff.ciffHeader.width, &cib.data[28], 8);
+					memcpy(&ciffAnimation.ciff.ciffHeader.height, &cib.data[36], 8);
+					ciffAnimation.ciff.ciffContent.pixels = (char*)malloc(ciffAnimation.ciff.ciffHeader.content_size);
+					
+					// TODO: Some memory crash
+					memcpy(&ciffAnimation.ciff.ciffContent.pixels, 
+						&cib.data[ciffAnimation.ciff.ciffHeader.header_size+8],
+						ciffAnimation.ciff.ciffHeader.content_size);
 					//generate png
 					//open file
 					//filewriter pixels
 					//std out imageUrl
 					//close file
 					//generate end
-					free(ca.ciff.ciffContent.pixels);
+					free(ciffAnimation.ciff.ciffContent.pixels);
 					free(cib.data);
 					break;
 				}
