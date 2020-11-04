@@ -4,7 +4,9 @@
 
 using namespace std;
 
-
+/// <summary>
+/// https://stackoverflow.com/a/30423762
+/// </summary>
 typedef struct                       /**** BMP file header structure ****/
 {
 	unsigned int   bfSize;           /* Size of file */
