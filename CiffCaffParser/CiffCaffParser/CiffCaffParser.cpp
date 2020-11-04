@@ -1,11 +1,11 @@
 ﻿#include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
 struct CiffHeader
 {
-public:
 	char magic[4];
 	__int64 header_size;
 	__int64 content_size;
@@ -17,7 +17,7 @@ public:
 
 struct CiffContent
 {
-	char* pixels;
+	vector<unsigned int> pixels;
 };
 
 struct Ciff {
@@ -62,55 +62,82 @@ int main(int argc, char* argv[])
 	ifstream myfile;
 	try
 	{
-		myfile.open("M:\\Iskola\\MSC\\CiffCaffParser\\CiffCaffParser\\3.caff", ios::in | ios::binary); //Change file destination
+		myfile.open("M:\\Iskola\\MSC\\CiffCaffParser\\CiffCaffParser\\1.caff", ios::in | ios::binary); //Change file destination
 		string mode = argv[2];
 		if (argc > 2 && mode.compare("CAFF") == 0)
 		{
-			CaffBlock cb;
-			myfile.read((char*)&cb.id, 1);
-			myfile.read((char*)&cb.length, 8);
-			cb.data = (char*)malloc(cb.length);
-			myfile.read(cb.data, cb.length);
-			CaffHeader ch;
-			memcpy(&ch.magic, &cb.data[0], 4);
-			memcpy(&ch.header_size, &cb.data[4], 12);
-			memcpy(&ch.num_anim, &cb.data[12], 8);
+			CaffBlock caffBlock;
+			myfile.read((char*)&caffBlock.id, 1);
+			myfile.read((char*)&caffBlock.length, 8);
 
-			free(cb.data);
-			for (int i = 0; i < ch.num_anim + 1; i++)
+			CaffHeader caffHeader;
+			myfile.read((char*)&caffHeader.magic, 4);
+			myfile.read((char*)&caffHeader.header_size, 8);
+			myfile.read((char*)&caffHeader.num_anim, 8);
+
+			for (int i = 0; i < caffHeader.num_anim + 1; i++)
 			{
-				CaffBlock cib;
-				myfile.read((char*)&cib.id, sizeof(cib.id));
-				myfile.read((char*)&cib.length, sizeof(cib.length));
-				cib.data = (char*)malloc(cib.length);
-				myfile.read(cib.data, cib.length);
-				if (cib.id == '\x03')
+				CaffBlock innerCaffBlock;
+				myfile.read((char*)&innerCaffBlock.id, sizeof(innerCaffBlock.id));
+				myfile.read((char*)&innerCaffBlock.length, sizeof(innerCaffBlock.length));
+				if (innerCaffBlock.id == '\x02')
+				{
+					CaffCredits caffCredits;
+					myfile.read((char*)&caffCredits.year, 2);
+					myfile.read((char*)&caffCredits.month, 1);
+					myfile.read((char*)&caffCredits.day, 1);
+					myfile.read((char*)&caffCredits.hour, 1);
+					myfile.read((char*)&caffCredits.minute, 1);
+					myfile.read((char*)&caffCredits.creator_len, 8);
+					myfile.read((char*)&caffCredits.creator[0], caffCredits.creator_len);
+
+				}
+				if (innerCaffBlock.id == '\x03')
 				{
 					CaffAnimation ciffAnimation;
-					memcpy(&ciffAnimation.duration, &cib.data[0], 8);
-					memcpy(&ciffAnimation.ciff.ciffHeader.magic[0], &cib.data[8], 4);
-					memcpy(&ciffAnimation.ciff.ciffHeader.header_size, &cib.data[12], 8);
-					memcpy(&ciffAnimation.ciff.ciffHeader.content_size, &cib.data[20], 8);
-					memcpy(&ciffAnimation.ciff.ciffHeader.width, &cib.data[28], 8);
-					memcpy(&ciffAnimation.ciff.ciffHeader.height, &cib.data[36], 8);
-					ciffAnimation.ciff.ciffContent.pixels = (char*)malloc(ciffAnimation.ciff.ciffHeader.content_size);
+					myfile.read((char*)&ciffAnimation.duration, 8);
+					myfile.read((char*)&ciffAnimation.ciff.ciffHeader.magic, 4);
+					myfile.read((char*)&ciffAnimation.ciff.ciffHeader.header_size, 8);
+					myfile.read((char*)&ciffAnimation.ciff.ciffHeader.content_size, 8);
+					myfile.read((char*)&ciffAnimation.ciff.ciffHeader.width, 8);
+					myfile.read((char*)&ciffAnimation.ciff.ciffHeader.height, 8);
+
+					// Read caption
+					char currentCaptionCharacter = '0';
+					int captionSize = 0;
+					while (currentCaptionCharacter != '\n')
+					{
+						myfile.read((char*)&currentCaptionCharacter, 1);
+						ciffAnimation.ciff.ciffHeader.caption += currentCaptionCharacter;
+						captionSize++;
+					}
 					
-					// TODO: Some memory crash
-					memcpy(&ciffAnimation.ciff.ciffContent.pixels, 
-						&cib.data[ciffAnimation.ciff.ciffHeader.header_size+8],
-						ciffAnimation.ciff.ciffHeader.content_size);
+					// Read tags
+					char currentTagCharacter = '0';
+					int index = 0;
+					while (index < ciffAnimation.ciff.ciffHeader.header_size - captionSize - 36)
+					{
+						myfile.read((char*)&currentTagCharacter, 1);
+						ciffAnimation.ciff.ciffHeader.tags += currentTagCharacter;
+						index++;
+					}
+
+					// Read pixels
+					uint8_t pixelCount = 0;
+					uint8_t currentPixel = 0;
+
+					for (int i = 0; i < ciffAnimation.ciff.ciffHeader.content_size; i++)
+					{
+						myfile.read((char*)&currentPixel, sizeof(uint8_t));
+						ciffAnimation.ciff.ciffContent.pixels.push_back(currentPixel);
+					}
+					break;
 					//generate png
 					//open file
 					//filewriter pixels
 					//std out imageUrl
 					//close file
 					//generate end
-					free(ciffAnimation.ciff.ciffContent.pixels);
-					free(cib.data);
-					break;
-				}
-				else {
-					free(cib.data);
 				}
 			}
 		}
@@ -123,7 +150,6 @@ int main(int argc, char* argv[])
 			myfile.read((char*)&ch.width, sizeof(ch.width));
 			myfile.read((char*)&ch.height, sizeof(ch.height));
 			myfile.read((char*)&ch.caption, ch.header_size - 36); //a tagek is ebben vannak �gy
-			cc.pixels = (char*)malloc(ch.content_size);
 			myfile.read((char*)&cc.pixels, ch.content_size);
 			//generate png
 			//open file
@@ -131,7 +157,6 @@ int main(int argc, char* argv[])
 			//std out imageUrl
 			//close file
 			//generate end
-			free(cc.pixels);
 		}
 		myfile.close();
 	}
@@ -142,13 +167,14 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+int readCaption(CiffHeader& header, ifstream file) {
+	char currentCharacter = '0';
+	int captionSize = 0;
+	while (currentCharacter != '\n')
+	{
+		file.read((char*)&currentCharacter, 1);
+		header.caption += currentCharacter;
+		captionSize++;
+	}
+	return captionSize;
+}
