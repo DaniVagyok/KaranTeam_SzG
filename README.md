@@ -8,4 +8,5 @@ KaranTeam Számítógép-biztonság házi feladat
 * Szőke Viktor
 
 ## Dokumentumok
-[Specifikáció](https://github.com/DaniVagyok/KaranTeam_SzG/wiki/Specifikáció)
+* [Specifikáció](https://github.com/DaniVagyok/KaranTeam_SzG/wiki/Specifikáció)
+* [Natív CAFF Parser](https://github.com/DaniVagyok/KaranTeam_SzG/wiki/Nat%C3%ADv-CAFF-Parser)
