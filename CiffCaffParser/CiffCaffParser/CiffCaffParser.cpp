@@ -1,6 +1,12 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <vector>
+#include <stdio.h>
+
+#define _CRT_SECURE_NO_WARNINGS_GLOBALS
+//#pragma warning(disable:4996)
+
+//#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
 
 using namespace std;
 
@@ -33,10 +39,10 @@ typedef struct                       /**** BMP file info structure ****/
 struct CiffHeader
 {
 	char magic[4];
-	__int64 header_size;
-	__int64 content_size;
-	__int64 width;
-	__int64 height;
+	uint64_t header_size;
+	uint64_t content_size;
+	uint64_t width;
+	uint64_t height;
 	string caption;
 	string tags;
 };
@@ -54,15 +60,15 @@ struct Ciff {
 struct CaffBlock
 {
 	char id;
-	__int64 length;
+	uint64_t length;
 	char* data;
 };
 
 struct CaffHeader
 {
 	char magic[4];
-	__int64 header_size;
-	__int64 num_anim;
+	uint64_t header_size;
+	uint64_t num_anim;
 };
 
 struct CaffCredits
@@ -72,15 +78,16 @@ struct CaffCredits
 	char day;
 	char hour;
 	char minute;
-	__int64 creator_len;
+	uint64_t creator_len;
 	string creator;
 };
 
 struct CaffAnimation
 {
-	__int64 duration;
+	uint64_t duration;
 	Ciff ciff;
 };
+
 
 int main(int argc, char* argv[])
 {
@@ -109,8 +116,7 @@ int main(int argc, char* argv[])
 	try
 	{
 		myfile.open(argv[1], ios::in | ios::binary); //Change file destination
-		string mode = argv[2];
-		if (argc > 2 && mode.compare("CAFF") == 0)
+		if (true)
 		{
 			CaffBlock caffBlock;
 			myfile.read((char*)&caffBlock.id, 1);
@@ -158,7 +164,7 @@ int main(int argc, char* argv[])
 						ciffAnimation.ciff.ciffHeader.caption += currentCaptionCharacter;
 						captionSize++;
 					}
-					
+
 					// Read tags
 					char currentTagCharacter = '0';
 					int index = 0;
@@ -170,7 +176,6 @@ int main(int argc, char* argv[])
 					}
 
 					// Read pixels
-					uint8_t pixelCount = 0;
 					uint8_t currentPixel = 0;
 
 					for (int i = 0; i < ciffAnimation.ciff.ciffHeader.content_size; i++)
@@ -188,26 +193,21 @@ int main(int argc, char* argv[])
 					bih.biHeight = height;
 
 					FILE* file;
-					fopen_s(&file, "output.bmp", "wb");
+					file = fopen(argv[2], "wb");
 					if (!file)
 					{
 						printf("Could not write file\n");
 						return 0;
 					}
-
 					/*Write headers*/
 					fwrite(&bfType, 1, sizeof(bfType), file);
 					fwrite(&bfh, 1, sizeof(bfh), file);
 					fwrite(&bih, 1, sizeof(bih), file);
-
 					/*Write bitmap*/
-					for (int i = (height * width * 3)-1; i>=0; i = i - 3) {
-						int x = i % width;
-						int y = i / width;
-
+					for (int i = (height * width * 3) - 1; i >= 0; i = i - 3) {
 						unsigned int r = ciffAnimation.ciff.ciffContent.pixels[i];
-						unsigned int g = ciffAnimation.ciff.ciffContent.pixels[i-1];
-						unsigned int b = ciffAnimation.ciff.ciffContent.pixels[i-2];
+						unsigned int g = ciffAnimation.ciff.ciffContent.pixels[i - 1];
+						unsigned int b = ciffAnimation.ciff.ciffContent.pixels[i - 2];
 						fwrite(&r, 1, 1, file);
 						fwrite(&g, 1, 1, file);
 						fwrite(&b, 1, 1, file);
