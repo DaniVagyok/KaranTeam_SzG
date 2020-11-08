@@ -3,11 +3,6 @@
 #include <vector>
 #include <stdio.h>
 
-#define _CRT_SECURE_NO_WARNINGS_GLOBALS
-//#pragma warning(disable:4996)
-
-//#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),(mode)))==NULL
-
 using namespace std;
 
 /// <summary>
@@ -88,14 +83,10 @@ struct CaffAnimation
     Ciff ciff;
 };
 
-
-int main(int argc, char* argv[])
-{
+void generateBMP(vector<unsigned int> rgbVector, int width, int height, string outputFileName) {
     BITMAPFILEHEADER bfh;
     BITMAPINFOHEADER bih;
 
-    // Bitmap declarations
-    /* Magic number for file. It does not fit in the header structure due to alignment requirements, so put it outside */
     unsigned short bfType = 0x4d42;
     bfh.bfReserved1 = 0;
     bfh.bfReserved2 = 0;
@@ -111,6 +102,39 @@ int main(int argc, char* argv[])
     bih.biClrUsed = 0;
     bih.biClrImportant = 0;
 
+
+    bfh.bfSize = 2 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + width * height * 3;
+    bih.biWidth = width;
+    bih.biHeight = height;
+
+    FILE* file;
+    string fileName = outputFileName + ".bmp";
+
+    file = fopen(fileName.c_str(), "wb");
+    if (!file)
+    {
+        printf("Could not write file\n");
+        throw;
+    }
+    /*Write headers*/
+    fwrite(&bfType, 1, sizeof(bfType), file);
+    fwrite(&bfh, 1, sizeof(bfh), file);
+    fwrite(&bih, 1, sizeof(bih), file);
+    /*Write bitmap*/
+    for (int i = (height * width * 3) - 1; i >= 0; i = i - 3) {
+        unsigned int r = rgbVector[i];
+        unsigned int g = rgbVector[i - 1];
+        unsigned int b = rgbVector[i - 2];
+        fwrite(&r, 1, 1, file);
+        fwrite(&g, 1, 1, file);
+        fwrite(&b, 1, 1, file);
+    }
+    fclose(file);
+}
+
+
+int main(int argc, char* argv[])
+{
     string imageUrl;
     ifstream myfile;
     try
@@ -183,34 +207,10 @@ int main(int argc, char* argv[])
                 }
 
                 // Generate image
-                int width = ciffAnimation.ciff.ciffHeader.width;
-                int height = ciffAnimation.ciff.ciffHeader.height;
-
-                bfh.bfSize = 2 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + width * height * 3;
-                bih.biWidth = width;
-                bih.biHeight = height;
-
-                FILE* file;
-                file = fopen(argv[2], "wb");
-                if (!file)
-                {
-                    printf("Could not write file\n");
-                    return 0;
-                }
-                /*Write headers*/
-                fwrite(&bfType, 1, sizeof(bfType), file);
-                fwrite(&bfh, 1, sizeof(bfh), file);
-                fwrite(&bih, 1, sizeof(bih), file);
-                /*Write bitmap*/
-                for (int i = (height * width * 3) - 1; i >= 0; i = i - 3) {
-                    unsigned int r = ciffAnimation.ciff.ciffContent.pixels[i];
-                    unsigned int g = ciffAnimation.ciff.ciffContent.pixels[i - 1];
-                    unsigned int b = ciffAnimation.ciff.ciffContent.pixels[i - 2];
-                    fwrite(&r, 1, 1, file);
-                    fwrite(&g, 1, 1, file);
-                    fwrite(&b, 1, 1, file);
-                }
-                fclose(file);
+                generateBMP(ciffAnimation.ciff.ciffContent.pixels,
+                    ciffAnimation.ciff.ciffHeader.width,
+                    ciffAnimation.ciff.ciffHeader.height,
+                    argv[2]);
                 break;
             }
         }
@@ -218,7 +218,7 @@ int main(int argc, char* argv[])
     }
     catch (const std::exception&)
     {
-        //error kimenet
+        cout << "An error occured";
     }
     return 0;
 }

@@ -1,10 +1,15 @@
 CXX = g++
 CXXFLAGS = -Wall -g
+EXECUTABLE  := CiffCaffParser
 
-CiffCaffParser: CiffCaffParser.o
-	$(CXX) $(CXXFLAGS) -o CiffCaffParser CiffCaffParser.o
+$(EXECUTABLE): $(EXECUTABLE).o
+	@echo "🚧 Building..."
+	$(CXX) $(CXXFLAGS) -o $(EXECUTABLE) $(EXECUTABLE).o
 
-# The main.o target can be written more simply
+$(EXECUTABLE).o: $(EXECUTABLE).cpp
+	$(CXX) $(CXXFLAGS) -c $(EXECUTABLE).cpp
 
-CiffCaffParser.o: CiffCaffParser.cpp
-	$(CXX) $(CXXFLAGS) -c CiffCaffParser.cpp
+clean:
+	@echo "🧹 Clearing..."
+	-rm $(EXECUTABLE)
+	-rm $(EXECUTABLE).o
