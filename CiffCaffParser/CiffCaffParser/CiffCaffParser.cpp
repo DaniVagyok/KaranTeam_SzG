@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 	ifstream myfile;
 	try
 	{
-		myfile.open("M:\\Iskola\\MSC\\CiffCaffParser\\CiffCaffParser\\2.caff", ios::in | ios::binary); //Change file destination
+		myfile.open(argv[1], ios::in | ios::binary); //Change file destination
 		string mode = argv[2];
 		if (argc > 2 && mode.compare("CAFF") == 0)
 		{
