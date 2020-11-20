@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from "../../services/auth.service";
+
 @Component({
   selector: 'karanteam-login-page',
   templateUrl: './login-page.component.html',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  loginUserData: any ={}
+
+  constructor(private auth:AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  loginUser(){
+    this.auth.loginUser(this.loginUserData)
+    .subscribe(
+      res => console.log(res),
+      err => console.log(err)
+      )
   }
 
 }

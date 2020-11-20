@@ -1,1 +1,26 @@
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <a class="navbar-brand" href="#">cucc neve</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/valami1" routerLinkActive="active">Valami1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/valami2" routerLinkActive="active">Valami2</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <a class="nav-link" routerLink="/" routerLinkActive="active">Bejelentkezés</a>
+        <a class="nav-link" routerLink="/register" routerLinkActive="active">Regisztráció</a>
+        <a class="nav-link" style="cursor:pointer">Kijelentkezés</a>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
