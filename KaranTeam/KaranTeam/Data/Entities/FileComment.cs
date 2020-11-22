@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Data.Entities
 {
-    public class Comment
+    public class FileComment
     {
         public int Id { get; set; }
         public int FileId { get; set; }
@@ -16,9 +16,9 @@ namespace KaranTeam.Data.Entities
         public User User { get; set; }
         public string Content { get; set; }
     }
-    public class CommentConfig : IEntityTypeConfiguration<Comment>
+    public class FileCommentConfig : IEntityTypeConfiguration<FileComment>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<FileComment> builder)
         {
             builder.HasOne(fk=> fk.User)
                    .WithMany(f=>f.Comments)
@@ -26,7 +26,7 @@ namespace KaranTeam.Data.Entities
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(fk => fk.File)
-                   .WithMany(f => f.FajlKommentek)
+                   .WithMany(f => f.FileComments)
                    .HasForeignKey(fk => fk.FileId)
                    .OnDelete(DeleteBehavior.Restrict);
 

@@ -14,7 +14,7 @@ namespace KaranTeam.Data
     public class ApplicationDbContext : ApiAuthorizationDbContext<User>
     {
         public DbSet<File> Fajlok { get; set; }
-        public DbSet<Comment> FajlKommentek { get; set; }
+        public DbSet<FileComment> FajlKommentek { get; set; }
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
@@ -25,7 +25,7 @@ namespace KaranTeam.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new FileConfig());
-            modelBuilder.ApplyConfiguration(new CommentConfig());
+            modelBuilder.ApplyConfiguration(new FileCommentConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
         }
     }

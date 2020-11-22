@@ -12,7 +12,7 @@ namespace KaranTeam.Data.Entities
     {
         public bool IsAdmin { get; set; } = false;
         public IEnumerable<File> Files { get; set; }
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<FileComment> Comments { get; set; }
     }
 
     public class UserConfig : IEntityTypeConfiguration<User>

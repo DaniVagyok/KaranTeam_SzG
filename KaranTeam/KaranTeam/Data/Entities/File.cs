@@ -16,7 +16,7 @@ namespace KaranTeam.Data.Entities
         public string Description { get; set; }
         public string OwnerId { get; set; }
         public User Owner { get; set; }
-        public IEnumerable<Comment> FajlKommentek { get; set; }
+        public IEnumerable<FileComment> FileComments { get; set; }
     }
     public class FileConfig : IEntityTypeConfiguration<File>
     {
@@ -27,7 +27,7 @@ namespace KaranTeam.Data.Entities
                    .HasForeignKey(f => f.OwnerId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(f => f.FajlKommentek)
+            builder.HasMany(f => f.FileComments)
                    .WithOne(fk => fk.File)
                    .HasForeignKey(fk => fk.FileId)
                    .OnDelete(DeleteBehavior.Cascade);
