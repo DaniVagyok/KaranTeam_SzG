@@ -6,10 +6,15 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [ShopItemComponent],
+  declarations: [
+    ShopItemComponent
+  ],
   imports: [
     CommonModule,
     FormsModule
+  ],
+  exports: [
+    ShopItemComponent
   ]
 })
 export class SharedModule { }

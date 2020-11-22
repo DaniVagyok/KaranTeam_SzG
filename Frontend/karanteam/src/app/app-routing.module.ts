@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'main', component: MainPageComponent },
+  // TODO: details route
 ];
 
 @NgModule({

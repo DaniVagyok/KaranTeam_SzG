@@ -6,3 +6,6 @@
         <input type="text" formControlName="searchValue" placeholder="Search...">
     </form>
 </div>
+<div class="shop-items-wrapper">
+    <karanteam-shop-item *ngFor="let item of shopItems" [shopItem]="item"></karanteam-shop-item>
+</div>

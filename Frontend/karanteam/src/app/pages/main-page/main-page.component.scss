@@ -8,3 +8,8 @@
         width: 100%;
     }
 }
+.shop-items-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
