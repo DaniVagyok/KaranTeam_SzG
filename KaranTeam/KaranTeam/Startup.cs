@@ -49,7 +49,7 @@ namespace KaranTeam
             services.AddScoped<IFajlService, FajlService>();
             services.AddScoped<IFelhasznaloService, FelhasznaloService>();
             services.AddScoped<IHitelesitesService, HitelesitesService>();
-            services.AddScoped<IFelhasznaloManager, FelhasznaloManager>();
+            services.AddScoped<IUserManager, UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,6 @@
 ﻿namespace KaranTeam.Services
 {
-    public interface IFelhasznaloManager
+    public interface IUserManager
     {
         string GetFelhasznaloId();
     }

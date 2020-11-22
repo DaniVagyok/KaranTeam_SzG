@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public class FelhasznaloManager : IFelhasznaloManager
+    public class UserManager : IUserManager
     {
         private readonly IHttpContextAccessor HttpContextAccessor;
-        public FelhasznaloManager(IHttpContextAccessor httpContextAccessor)
+        public UserManager(IHttpContextAccessor httpContextAccessor)
         {
             HttpContextAccessor = httpContextAccessor;
         }

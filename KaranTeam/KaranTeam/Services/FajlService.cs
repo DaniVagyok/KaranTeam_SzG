@@ -10,11 +10,11 @@ namespace KaranTeam.Services
     public class FajlService : IFajlService
     {
         // csak akkor ad vissza jó értéket ez a manager ha authoz van kötve az adott controller elérése
-        private IFelhasznaloManager FelhasznaloManager { get; }
+        private IUserManager FelhasznaloManager { get; }
         private ApplicationDbContext Context { get; }
 
         public FajlService(ApplicationDbContext context,
-            IFelhasznaloManager felhasznaloManager)
+            IUserManager felhasznaloManager)
         {
             FelhasznaloManager = felhasznaloManager;
             Context = context;

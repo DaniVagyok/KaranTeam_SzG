@@ -8,11 +8,11 @@ namespace KaranTeam.Services
 {
     public class FelhasznaloService : IFelhasznaloService
     {
-        private IFelhasznaloManager FelhasznaloManager { get; }
+        private IUserManager FelhasznaloManager { get; }
         private ApplicationDbContext Context { get; }
 
         public FelhasznaloService(ApplicationDbContext context,
-            IFelhasznaloManager felhasznaloManager)
+            IUserManager felhasznaloManager)
         {
             FelhasznaloManager = felhasznaloManager;
             Context = context;
