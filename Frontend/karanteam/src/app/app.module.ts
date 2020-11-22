@@ -11,13 +11,15 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared/shared.module';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterPageComponent,
     LoginPageComponent,
-    MainPageComponent
+    MainPageComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
