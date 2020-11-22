@@ -31,11 +31,11 @@ namespace KaranTeam
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<Felhasznalo>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<Felhasznalo, ApplicationDbContext>();
+                .AddApiAuthorization<User, ApplicationDbContext>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

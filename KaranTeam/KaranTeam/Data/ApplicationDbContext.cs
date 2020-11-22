@@ -11,10 +11,10 @@ using KaranTeam.Data.Entities;
 
 namespace KaranTeam.Data
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<Felhasznalo>
+    public class ApplicationDbContext : ApiAuthorizationDbContext<User>
     {
-        public DbSet<Fajl> Fajlok { get; set; }
-        public DbSet<FajlKomment> FajlKommentek { get; set; }
+        public DbSet<File> Fajlok { get; set; }
+        public DbSet<Comment> FajlKommentek { get; set; }
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
@@ -24,9 +24,9 @@ namespace KaranTeam.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new FajlConfig());
-            modelBuilder.ApplyConfiguration(new FajlKommentConfig());
-            modelBuilder.ApplyConfiguration(new FelhasznaloConfig());
+            modelBuilder.ApplyConfiguration(new FileConfig());
+            modelBuilder.ApplyConfiguration(new CommentConfig());
+            modelBuilder.ApplyConfiguration(new UserConfig());
         }
     }
 }
