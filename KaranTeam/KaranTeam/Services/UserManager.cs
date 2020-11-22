@@ -15,7 +15,7 @@ namespace KaranTeam.Services
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public string GetFelhasznaloId()
+        public string GetUserId()
         {
             var userId = HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if ( userId != null)

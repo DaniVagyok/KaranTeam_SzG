@@ -2,6 +2,6 @@
 {
     public interface IUserManager
     {
-        string GetFelhasznaloId();
+        string GetUserId();
     }
 }

@@ -34,23 +34,24 @@ namespace KaranTeam.Services.Comment
                 }).ToListAsync();      
         }
 
-        public void AddCommentByFileId(int fileId, FileCommentModel newComment)
+        public FileComment AddCommentByFileId(int fileId, string commentContent)
         {
             var newEntity = new FileComment
             {
                    FileId = fileId,
-                   UserId = UserManager.GetFelhasznaloId(),
-                   Content = newComment.Content,
-                   CreationDate = newComment.CreationDate
+                   UserId = UserManager.GetUserId(),
+                   Content = commentContent,
+                   CreationDate = new DateTime()
 
             };
-            Context.FileComments.Add(newEntity);
+            var result = Context.FileComments.Add(newEntity);
+            return result.Entity;
         }
 
         public void RemoveCommentById(int commentId)
         {
-            var removeableEntity = Context.FileComments.Find(commentId);
-            Context.FileComments.Remove(removeableEntity);
+            var removableEntity = Context.FileComments.Find(commentId);
+            Context.FileComments.Remove(removableEntity);
         }
     }
 }
