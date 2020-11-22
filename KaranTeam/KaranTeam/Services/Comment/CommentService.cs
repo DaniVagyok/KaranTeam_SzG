@@ -37,7 +37,7 @@ namespace KaranTeam.Services.Comment
 
         public void AddComment(FileCommentModel newComment)
         {
-            FileComment newCommentEntity = new FileComment
+            var newCommentEntity = new FileComment
             {
                    FileId = newComment.FileId,
                    UserId = UserManager.GetFelhasznaloId(),
@@ -45,8 +45,13 @@ namespace KaranTeam.Services.Comment
                    CreationDate = newComment.CreationDate
 
             };
-
             Context.FileComments.Add(newCommentEntity);
+        }
+
+        public void RemoveCommentById(int commentId)
+        {
+            var removeableEntity = Context.FileComments.Find(commentId);
+            Context.FileComments.Remove(removeableEntity);
         }
     }
 }
