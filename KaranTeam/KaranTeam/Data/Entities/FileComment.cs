@@ -21,7 +21,7 @@ namespace KaranTeam.Data.Entities
         public void Configure(EntityTypeBuilder<FileComment> builder)
         {
             builder.HasOne(fk=> fk.User)
-                   .WithMany(f=>f.Comments)
+                   .WithMany(f=>f.FileComments)
                    .HasForeignKey(fk=>fk.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
 

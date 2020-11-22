@@ -12,7 +12,7 @@ namespace KaranTeam.Data.Entities
     {
         public bool IsAdmin { get; set; } = false;
         public IEnumerable<File> Files { get; set; }
-        public IEnumerable<FileComment> Comments { get; set; }
+        public IEnumerable<FileComment> FileComments { get; set; }
     }
 
     public class UserConfig : IEntityTypeConfiguration<User>
@@ -24,7 +24,7 @@ namespace KaranTeam.Data.Entities
                    .HasForeignKey(sf => sf.OwnerId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(f => f.Comments)
+            builder.HasMany(f => f.FileComments)
                    .WithOne(sfk => sfk.User)
                    .HasForeignKey(sfk => sfk.UserId)
                    .OnDelete(DeleteBehavior.Cascade);

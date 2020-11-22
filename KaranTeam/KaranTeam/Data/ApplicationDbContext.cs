@@ -13,8 +13,8 @@ namespace KaranTeam.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<User>
     {
-        public DbSet<File> Fajlok { get; set; }
-        public DbSet<FileComment> FajlKommentek { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<FileComment> FileComments { get; set; }
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
