@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -11,15 +12,21 @@ export class LoginPageComponent implements OnInit {
 
   loginUserData: any = {};
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   loginUser(): void {
+    // TODO: ezt a sort majd átrakni a subscribe-ba
+    this.router.navigate(['/main']);
     this.auth.loginUser(this.loginUserData)
-      .subscribe(
-        res => console.log(res),
+      .subscribe(res => {
+        console.log(res);
+      },
         err => console.log(err)
       );
   }

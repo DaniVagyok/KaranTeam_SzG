@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'karanteam-main-page',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
+  subscriptions: Subscription[];
+  searchForm: FormGroup = new FormGroup({
+    searchValue: new FormControl('')
+  });
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -1,1 +1,8 @@
-<p>main-page works!</p>
+<div class="title">
+    Main page
+</div>
+<div class="search-bar">
+    <form [formGroup]="searchForm">
+        <input type="text" formControlName="searchValue" placeholder="Search...">
+    </form>
+</div>
