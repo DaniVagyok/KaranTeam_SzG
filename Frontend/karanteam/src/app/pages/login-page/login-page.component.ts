@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'karanteam-login-page',
@@ -9,19 +9,19 @@ import { AuthService } from "../../services/auth.service";
 })
 export class LoginPageComponent implements OnInit {
 
-  loginUserData: any ={}
+  loginUserData: any = {};
 
-  constructor(private auth:AuthService) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  loginUser(){
+  loginUser(): void {
     this.auth.loginUser(this.loginUserData)
-    .subscribe(
-      res => console.log(res),
-      err => console.log(err)
-      )
+      .subscribe(
+        res => console.log(res),
+        err => console.log(err)
+      );
   }
 
 }
