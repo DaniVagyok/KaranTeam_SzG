@@ -6,6 +6,5 @@ namespace KaranTeam.Services
 {
     public interface IFajlService
     {
-        Task<IEnumerable<FajlListaModel>> GetFajlok(string szuro);
     }
 }

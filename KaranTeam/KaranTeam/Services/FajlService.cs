@@ -19,22 +19,5 @@ namespace KaranTeam.Services
             FelhasznaloManager = felhasznaloManager;
             Context = context;
         }
-
-        public async Task<IEnumerable<FajlListaModel>> GetFajlok(string szuro)
-        {
-            /*var user = Context.Users.Where(u=> u.Id == FelhasznaloManager.GetUserId()).SingleOrDefault();
-            if (user.IsAdmin)
-                return null;
-                
-            return await Context.Fajlok.Where(f=>f.Nev.Contains(szuro)).ToListAsync().MapTo(f=> new FajlListaModel
-            {
-            Nev = f.Nev,
-            .
-            .
-            .
-            .
-            .
-            });*/
-        }
     }
 }
