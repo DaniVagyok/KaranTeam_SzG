@@ -1,10 +1,11 @@
-﻿using KaranTeam.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public interface IFajlService
+    public class AuthenticationService : IAuthenticationService
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace KaranTeam.Services
 {
-    public interface IHitelesitesService
+    public interface IAuthenticationService
     {
     }
 }

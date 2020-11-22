@@ -1,6 +1,6 @@
 ﻿namespace KaranTeam.Services
 {
-    public interface IFelhasznaloService
+    public interface IUserService
     {
     }
 }
