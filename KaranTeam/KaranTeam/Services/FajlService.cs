@@ -20,9 +20,21 @@ namespace KaranTeam.Services
             Context = context;
         }
 
-        public Task<IEnumerable<FajlListaModel>> GetFajlok(string szuro)
+        public async Task<IEnumerable<FajlListaModel>> GetFajlok(string szuro)
         {
-            throw new NotImplementedException();
+            /*var user = Context.Users.Where(u=> u.Id == FelhasznaloManager.GetUserId()).SingleOrDefault();
+            if (user.IsAdmin)
+                return null;
+                
+            return await Context.Fajlok.Where(f=>f.Nev.Contains(szuro)).ToListAsync().MapTo(f=> new FajlListaModel
+            {
+            Nev = f.Nev,
+            .
+            .
+            .
+            .
+            .
+            });*/
         }
     }
 }
