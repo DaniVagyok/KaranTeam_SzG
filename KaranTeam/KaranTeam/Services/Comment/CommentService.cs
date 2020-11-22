@@ -21,31 +21,30 @@ namespace KaranTeam.Services.Comment
             Context = context;
         }
 
-        public async Task<IEnumerable<FileCommentModel>> GetCommentsByFileId(string fileId)
+        public async Task<IEnumerable<FileCommentModel>> GetCommentsByFileId(int fileId)
         {
             return await Context.FileComments
-                .Where(fc => fc.FileId.Equals(fileId))
+                .Where(fc => fc.FileId == fileId)
                 .Select(fc => new FileCommentModel
                 {
                     Id = fc.Id,
-                    FileId = fc.FileId,
                     OwnerName = fc.User.Name,
                     Content = fc.Content,
                     CreationDate = fc.CreationDate
                 }).ToListAsync();      
         }
 
-        public void AddComment(FileCommentModel newComment)
+        public void AddCommentByFileId(int fileId, FileCommentModel newComment)
         {
-            var newCommentEntity = new FileComment
+            var newEntity = new FileComment
             {
-                   FileId = newComment.FileId,
+                   FileId = fileId,
                    UserId = UserManager.GetFelhasznaloId(),
                    Content = newComment.Content,
                    CreationDate = newComment.CreationDate
 
             };
-            Context.FileComments.Add(newCommentEntity);
+            Context.FileComments.Add(newEntity);
         }
 
         public void RemoveCommentById(int commentId)

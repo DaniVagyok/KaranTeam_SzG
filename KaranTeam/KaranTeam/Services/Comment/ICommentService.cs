@@ -9,7 +9,7 @@ namespace KaranTeam.Services
     interface ICommentService
     {
         public Task<IEnumerable<FileCommentModel>> GetCommentsByFileId(string fileId);
-        public void AddComment(FileCommentModel newComment);
-        public void RemoveCommentById(string commentId);
+        public void AddCommentByFileId(int fileId, FileCommentModel newComment);
+        public void RemoveCommentById(int commentId);
     }
 }
