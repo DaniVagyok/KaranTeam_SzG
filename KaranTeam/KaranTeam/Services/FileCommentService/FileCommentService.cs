@@ -25,13 +25,8 @@ namespace KaranTeam.Services.Comment
         {
             return await Context.FileComments
                 .Where(fc => fc.FileId == fileId)
-                .Select(fc => new FileCommentModel
-                {
-                    Id = fc.Id,
-                    OwnerName = fc.User.Name,
-                    Content = fc.Content,
-                    CreationDate = fc.CreationDate
-                }).ToListAsync();      
+                .Select(fc => new FileCommentModel(fc))
+                .ToListAsync();      
         }
 
         public async Task<FileComment> AddCommentByFileId(int fileId, string commentContent)

@@ -29,7 +29,7 @@ namespace KaranTeam.Models
                 FileId = this.Id,
                 UserId = userId,
                 Content = this.Content,
-                CreationDate = DateTimeOffset.Now
+                CreationDate = this.CreationDate
             };
 		}
 	}
