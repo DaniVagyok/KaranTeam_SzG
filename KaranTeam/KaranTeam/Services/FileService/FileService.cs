@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace KaranTeam.Services
 {
@@ -15,8 +16,7 @@ namespace KaranTeam.Services
         private IUserManager UserManager { get; }
         private ApplicationDbContext Context { get; }
 
-        public FileService(ApplicationDbContext context,
-            IUserManager userManager)
+        public FileService(ApplicationDbContext context, IUserManager userManager)
         {
             UserManager = userManager;
             Context = context;
@@ -48,11 +48,13 @@ namespace KaranTeam.Services
                 .SingleOrDefaultAsync();
         }
 
-        public Task<IActionResult> DownloadFileById(int fileId)
+        public async Task DownloadFileById(int fileId)
         {
-            // TODO: Hogyan akarjuk visszakapni a letöltött file-t?
-            throw new NotImplementedException();
-        }
+            var downloadPath = Context.Files.Where(f => f.Id == fileId).SingleOrDefault().CAFFUri;
+            var downloadUri = new Uri(downloadPath);
+            var client = new WebClient();
+            await client.DownloadFileTaskAsync(downloadUri, "fileName.caff");
+ ;        }
 
         public async Task ModifyFile(FileDetailsModel modifiedFile)
         {
