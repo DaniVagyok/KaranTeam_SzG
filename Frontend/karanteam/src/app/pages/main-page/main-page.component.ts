@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MainPageService } from 'src/app/services/main-page.service';
 import { IShopItemModel } from 'src/app/shared/models/shop-item.model';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UploaderComponent } from './components/uploader/uploader.component';
 
 @Component({
   selector: 'karanteam-main-page',
@@ -18,7 +20,8 @@ export class MainPageComponent implements OnInit {
   });
 
   constructor(
-    private service: MainPageService
+    private service: MainPageService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +32,14 @@ export class MainPageComponent implements OnInit {
     this.searchForm.controls.searchValue.valueChanges.subscribe(res =>
       this.searchedItems = this.shopItems.filter(x => x.title.includes(res))
     );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UploaderComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe();
   }
 
 }

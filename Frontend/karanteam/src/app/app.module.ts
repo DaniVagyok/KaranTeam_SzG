@@ -12,6 +12,9 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared/shared.module';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { UploaderComponent } from './pages/main-page/components/uploader/uploader.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     RegisterPageComponent,
     LoginPageComponent,
     MainPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    UploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,9 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [
     AuthService
