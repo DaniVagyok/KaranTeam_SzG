@@ -57,16 +57,24 @@ namespace KaranTeam.Services
 
         public async Task ModifyFile(FileModel modifiedFile)
         {
-            var modifiedEntity = modifiedFile.ToEntity(UserManager.GetUserId());
-            Context.Files.Update(modifiedEntity);
-            await Context.SaveChangesAsync();
+            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            if (user.IsAdmin)
+            {
+                var modifiedEntity = modifiedFile.ToEntity(UserManager.GetUserId());
+                Context.Files.Update(modifiedEntity);
+                await Context.SaveChangesAsync();
+            }
         }
 
         public async Task RemoveFileById(int fileId)
         {
-            var removableEntity = Context.Files.Find(fileId);
-            Context.Files.Remove(removableEntity);
-            await Context.SaveChangesAsync();
+            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            if (user.IsAdmin)
+            {
+                var removableEntity = Context.Files.Find(fileId);
+                Context.Files.Remove(removableEntity);
+                await Context.SaveChangesAsync();
+            }
         }
 
         // https://stackoverflow.com/a/39394266

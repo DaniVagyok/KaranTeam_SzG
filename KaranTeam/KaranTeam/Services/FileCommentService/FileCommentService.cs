@@ -46,9 +46,13 @@ namespace KaranTeam.Services.Comment
 
         public async Task RemoveCommentById(int commentId)
         {
-            var removableEntity = Context.FileComments.Find(commentId);
-            Context.FileComments.Remove(removableEntity);
-            await Context.SaveChangesAsync();
+            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            if (user.IsAdmin)
+            {
+                var removableEntity = Context.FileComments.Find(commentId);
+                Context.FileComments.Remove(removableEntity);
+                await Context.SaveChangesAsync();
+            }
         }
     }
 }
