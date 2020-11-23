@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    interface ICommentService
+    interface IFileCommentService
     {
         public Task<IEnumerable<FileCommentModel>> GetCommentsByFileId(int fileId);
-        public FileComment AddCommentByFileId(int fileId, string commentContent);
-        public void RemoveCommentById(int commentId);
+        public Task<FileComment> AddCommentByFileId(int fileId, string commentContent);
+        public Task RemoveCommentById(int commentId);
     }
 }

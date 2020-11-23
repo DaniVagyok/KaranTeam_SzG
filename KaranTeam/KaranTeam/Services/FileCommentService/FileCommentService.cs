@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services.Comment
 {
-    public class CommentService: ICommentService
+    public class FileCommentService: IFileCommentService
     {
         private IUserManager UserManager { get; }
         private ApplicationDbContext Context { get; }
 
-        public CommentService(ApplicationDbContext context,
+        public FileCommentService(ApplicationDbContext context,
             IUserManager userManager)
         {
             UserManager = userManager;
@@ -34,24 +34,26 @@ namespace KaranTeam.Services.Comment
                 }).ToListAsync();      
         }
 
-        public FileComment AddCommentByFileId(int fileId, string commentContent)
+        public async Task<FileComment> AddCommentByFileId(int fileId, string commentContent)
         {
             var newEntity = new FileComment
             {
                    FileId = fileId,
                    UserId = UserManager.GetUserId(),
                    Content = commentContent,
-                   CreationDate = new DateTime()
+                   CreationDate = DateTimeOffset.Now
 
             };
             var result = Context.FileComments.Add(newEntity);
+            await Context.SaveChangesAsync();
             return result.Entity;
         }
 
-        public void RemoveCommentById(int commentId)
+        public async Task RemoveCommentById(int commentId)
         {
             var removableEntity = Context.FileComments.Find(commentId);
             Context.FileComments.Remove(removableEntity);
+            await Context.SaveChangesAsync();
         }
     }
 }
