@@ -29,4 +29,13 @@ export class UploaderComponent implements OnInit {
     this.fileName = files.item(0).name;
     this.shopItemUploadForm.controls.imageFile.setValue(files.item(0));
   }
+
+  save(): void {
+    console.log(this.shopItemUploadForm.value);
+    this.dialogRef.close();
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
 }

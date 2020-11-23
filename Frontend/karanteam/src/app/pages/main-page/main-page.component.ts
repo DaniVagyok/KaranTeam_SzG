@@ -36,7 +36,7 @@ export class MainPageComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(UploaderComponent, {
-      width: '250px',
+      width: '400px'
     });
 
     dialogRef.afterClosed().subscribe();
