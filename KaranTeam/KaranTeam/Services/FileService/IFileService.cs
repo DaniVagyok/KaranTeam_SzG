@@ -6,5 +6,6 @@ namespace KaranTeam.Services
 {
     public interface IFileService
     {
+        public Task<IEnumerable<FileListModel>> GetFiles();
     }
 }
