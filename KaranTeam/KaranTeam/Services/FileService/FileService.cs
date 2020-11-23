@@ -30,7 +30,7 @@ namespace KaranTeam.Services
                 .ToListAsync();
         }
 
-        public async Task<Data.Entities.File> UploadFile(NewFileModel newFile)
+        public async Task<NewFileModel> UploadFile(NewFileModel newFile)
         {
             var caffUri = SaveCaffFile(newFile);
             var newEntity = new Data.Entities.File
@@ -42,9 +42,9 @@ namespace KaranTeam.Services
                 OwnerId = UserManager.GetUserId()
             };
 
-            var result = Context.Files.Add(newEntity);
+            Context.Files.Add(newEntity);
             await Context.SaveChangesAsync();
-            return result.Entity;
+            return newFile;
         }
 
         public async Task<FileModel> GetFileById(int fileId)
