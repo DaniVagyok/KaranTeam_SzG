@@ -22,30 +22,29 @@ namespace KaranTeam.Services
             Context = context;
         }
 
-        public async Task<IEnumerable<FileModel>> GetFiles()
+        public async Task<IEnumerable<FileListModel>> GetFileList()
         {
             return await Context.Files
-                .Select(f => new FileModel(f))
+                .Select(f => new FileListModel(f))
                 .ToListAsync();
         }
 
-        public async Task<File> UploadFile(FileModel newFile)
+        public async Task<File> UploadFile(FileDetailsModel newFile)
         {
             // TODO: Mit kéne itt átadni paraméterként?
             var newEntity = newFile.ToEntity();
             newEntity.OwnerId = UserManager.GetUserId();
-
 
             var result = Context.Files.Add(newEntity);
             await Context.SaveChangesAsync();
             return result.Entity;
         }
 
-        public async Task<FileModel> GetFileById(int fileId)
+        public async Task<FileDetailsModel> GetFileById(int fileId)
         {
             return await Context.Files
                 .Where(f => f.Id == fileId)
-                .Select(f => new FileModel(f))
+                .Select(f => new FileDetailsModel(f))
                 .SingleOrDefaultAsync();
         }
 
@@ -55,7 +54,7 @@ namespace KaranTeam.Services
             throw new NotImplementedException();
         }
 
-        public async Task ModifyFile(FileModel modifiedFile)
+        public async Task ModifyFile(FileDetailsModel modifiedFile)
         {
             var modifiedEntity = modifiedFile.ToEntity();
             modifiedEntity.OwnerId = UserManager.GetUserId();
