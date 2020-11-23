@@ -1,9 +1,8 @@
 export interface IShopItemModel {
     id: number;
     title: string;
-    commentCounter?: number;
     description?: string;
-    image?: File;
+    imageUrl?: string;
     comments?: ICommentMondel[];
     ownerName?: string;
 }

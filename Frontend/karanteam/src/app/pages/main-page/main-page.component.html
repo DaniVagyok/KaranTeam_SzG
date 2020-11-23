@@ -1,7 +1,7 @@
 <div class="title">
     Main page
 </div>
-<button (click)="openDialog()">Upload</button>
+<button mat-raised-button color="secondary" (click)="openDialog()">Upload image</button>
 <div class="search-bar">
     <form [formGroup]="searchForm">
         <input type="text" formControlName="searchValue" placeholder="Search...">

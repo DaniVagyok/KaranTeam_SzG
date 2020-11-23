@@ -13,3 +13,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
+button {
+    display: block;
+    margin: 15px auto;
+    overflow-y: auto;
+}

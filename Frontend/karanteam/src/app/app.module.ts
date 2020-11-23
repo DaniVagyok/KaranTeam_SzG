@@ -15,6 +15,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { UploaderComponent } from './pages/main-page/components/uploader/uploader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     SharedModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
     AuthService
