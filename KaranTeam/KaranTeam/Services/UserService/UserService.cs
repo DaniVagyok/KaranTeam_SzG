@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public class FelhasznaloService : IFelhasznaloService
+    public class UserService : IUserService
     {
-        private IFelhasznaloManager FelhasznaloManager { get; }
+        private IUserManager FelhasznaloManager { get; }
         private ApplicationDbContext Context { get; }
 
-        public FelhasznaloService(ApplicationDbContext context,
-            IFelhasznaloManager felhasznaloManager)
+        public UserService(ApplicationDbContext context,
+            IUserManager felhasznaloManager)
         {
             FelhasznaloManager = felhasznaloManager;
             Context = context;

@@ -46,10 +46,10 @@ namespace KaranTeam
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddScoped<IFajlService, FajlService>();
-            services.AddScoped<IFelhasznaloService, FelhasznaloService>();
-            services.AddScoped<IHitelesitesService, HitelesitesService>();
-            services.AddScoped<IFelhasznaloManager, FelhasznaloManager>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<Services.IAuthenticationService, Services.AuthenticationService>();
+            services.AddScoped<IUserManager, UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

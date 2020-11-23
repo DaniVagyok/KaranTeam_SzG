@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public class FelhasznaloManager : IFelhasznaloManager
+    public class UserManager : IUserManager
     {
         private readonly IHttpContextAccessor HttpContextAccessor;
-        public FelhasznaloManager(IHttpContextAccessor httpContextAccessor)
+        public UserManager(IHttpContextAccessor httpContextAccessor)
         {
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public string GetFelhasznaloId()
+        public string GetUserId()
         {
             var userId = HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if ( userId != null)

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KaranTeam.Services.Comment
+namespace KaranTeam.Services
 {
-    public class CommentService
+    public class AuthenticationService : IAuthenticationService
     {
     }
 }

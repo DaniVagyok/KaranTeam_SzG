@@ -1,12 +1,10 @@
-﻿using System;
+﻿using KaranTeam.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    interface ICommentService
+    public interface IFileService
     {
-       
     }
 }

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public class FajlService : IFajlService
+    public class FileService : IFileService
     {
         // csak akkor ad vissza jó értéket ez a manager ha authoz van kötve az adott controller elérése
-        private IFelhasznaloManager FelhasznaloManager { get; }
+        private IUserManager FelhasznaloManager { get; }
         private ApplicationDbContext Context { get; }
 
-        public FajlService(ApplicationDbContext context,
-            IFelhasznaloManager felhasznaloManager)
+        public FileService(ApplicationDbContext context,
+            IUserManager felhasznaloManager)
         {
             FelhasznaloManager = felhasznaloManager;
             Context = context;
