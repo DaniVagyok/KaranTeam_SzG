@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
+using System.IO;
 
 namespace KaranTeam.Services
 {
@@ -29,11 +30,17 @@ namespace KaranTeam.Services
                 .ToListAsync();
         }
 
-        public async Task<File> UploadFile(FileDetailsModel newFile)
+        public async Task<Data.Entities.File> UploadFile(NewFileModel newFile)
         {
-            // TODO: Mit kéne itt átadni paraméterként?
-            var newEntity = newFile.ToEntity();
-            newEntity.OwnerId = UserManager.GetUserId();
+            var caffUri = SaveCaffFile(newFile);
+            var newEntity = new Data.Entities.File
+            {
+                Id = newFile.Id,
+                CAFFUri = caffUri,
+                Title = newFile.Title,
+                Description = newFile.Description,
+                OwnerId = UserManager.GetUserId()
+            };
 
             var result = Context.Files.Add(newEntity);
             await Context.SaveChangesAsync();
@@ -48,13 +55,15 @@ namespace KaranTeam.Services
                 .SingleOrDefaultAsync();
         }
 
-        public async Task DownloadFileById(int fileId)
+        public async Task<byte[]> getCaffFile(int fileId)
         {
-            var downloadPath = Context.Files.Where(f => f.Id == fileId).SingleOrDefault().CAFFUri;
-            var downloadUri = new Uri(downloadPath);
-            var client = new WebClient();
-            await client.DownloadFileTaskAsync(downloadUri, "fileName.caff");
- ;        }
+            var path = Context.Files.Where(f => f.Id == fileId).SingleOrDefault().CAFFUri;
+            if (!Directory.Exists(path))
+            {
+                return null;
+            }
+            return await System.IO.File.ReadAllBytesAsync(path);
+        }
 
         public async Task ModifyFile(FileDetailsModel modifiedFile)
         {
@@ -70,6 +79,26 @@ namespace KaranTeam.Services
             var removableEntity = Context.Files.Find(fileId);
             Context.Files.Remove(removableEntity);
             await Context.SaveChangesAsync();
+        }
+
+        // https://stackoverflow.com/a/39394266
+        private string SaveCaffFile(NewFileModel newFile)
+        {
+            string path = "~/files/caffs";
+
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+            }
+
+            var fileName = $"{newFile.Title}_{Context.Files.Count()}.caff";
+
+            string filePath = Path.Combine(path, fileName);
+            byte[] fileBytes = Convert.FromBase64String(newFile.FileBase64String);
+
+            System.IO.File.WriteAllBytes(filePath, fileBytes);
+
+            return filePath;
         }
     }
 }
