@@ -9,7 +9,7 @@ namespace KaranTeam.Models
     public class FileListModel
     {
         public int Id { get; set; }
-        public string ThumbnailUri { get; set; } // TODO: We need to return with thumbnail image
+        public string ThumbnailUri { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string OwnerName { get; set; }

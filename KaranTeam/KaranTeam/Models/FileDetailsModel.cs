@@ -9,7 +9,7 @@ namespace KaranTeam.Models
 	public class FileDetailsModel
 	{
 		public int Id { get; set; }
-		public string ThumbnailUri { get; set; } // TODO: Itt magával a képpel is vissza kellene térnünk
+		public string ThumbnailUri { get; set; }
 		public string CAFFUri { get; set; }
 		public string Title { get; set; }
 		public string Description { get; set; }

@@ -55,16 +55,6 @@ namespace KaranTeam.Services
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<byte[]> getCaffFile(int fileId)
-        {
-            var path = Context.Files.Where(f => f.Id == fileId).SingleOrDefault().CAFFUri;
-            if (!Directory.Exists(path))
-            {
-                return null;
-            }
-            return await System.IO.File.ReadAllBytesAsync(path);
-        }
-
         public async Task ModifyFile(FileDetailsModel modifiedFile)
         {
             var modifiedEntity = modifiedFile.ToEntity();
@@ -92,7 +82,6 @@ namespace KaranTeam.Services
             }
 
             var fileName = $"{newFile.Title}_{Context.Files.Count()}.caff";
-
             string filePath = Path.Combine(path, fileName);
             byte[] fileBytes = Convert.FromBase64String(newFile.FileBase64String);
 

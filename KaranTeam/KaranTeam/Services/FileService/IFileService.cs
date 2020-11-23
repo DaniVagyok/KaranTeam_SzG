@@ -12,7 +12,6 @@ namespace KaranTeam.Services
         public Task<IEnumerable<FileListModel>> GetFileList();
         public Task<File> UploadFile(NewFileModel newFile);
         public Task<FileDetailsModel> GetFileById(int fileId);
-        public Task<byte[]> getCaffFile(int fileId); // Mit akarunk itt visszakapni?
         public Task ModifyFile(FileDetailsModel modifiedFile);
         public Task RemoveFileById(int fileId);
     }
