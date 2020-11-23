@@ -1,6 +1,16 @@
 export interface IShopItemModel {
-    id: string;
+    id: number;
     title: string;
     commentCounter?: number;
+    description?: string;
     image?: File;
+    comments?: ICommentMondel[];
+    ownerName?: string;
+}
+
+export interface ICommentMondel {
+    id: number;
+    ownerName: string;
+    comment: string;
+    date: Date;
 }
