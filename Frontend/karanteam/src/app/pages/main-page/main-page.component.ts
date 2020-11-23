@@ -12,6 +12,7 @@ import { IShopItemModel } from 'src/app/shared/models/shop-item.model';
 export class MainPageComponent implements OnInit {
   subscriptions: Subscription[];
   shopItems: IShopItemModel[] = [];
+  searchedItems: IShopItemModel[] = [];
   searchForm: FormGroup = new FormGroup({
     searchValue: new FormControl('')
   });
@@ -21,7 +22,13 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.service.getShopItems().subscribe(res => this.shopItems = res);
+    this.service.getShopItems().subscribe(res => {
+      this.shopItems = res;
+      this.searchedItems = res;
+    });
+    this.searchForm.controls.searchValue.valueChanges.subscribe(res =>
+      this.searchedItems = this.shopItems.filter(x => x.title.includes(res))
+    );
   }
 
 }
