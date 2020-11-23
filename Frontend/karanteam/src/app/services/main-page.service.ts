@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IShopItemModel } from '../shared/models/shop-item.model';
@@ -7,10 +8,29 @@ import { IShopItemModel } from '../shared/models/shop-item.model';
 })
 export class MainPageService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getShopItems(): Observable<IShopItemModel[]> {
     return of(mock);
+  }
+
+  uploadShopItem(shopItem: IShopItemModel): Observable<void> {
+    mock.push(shopItem);
+    // TODO: URL-t átírni majd
+    const url = 'localhost';
+    const formData = new FormData();
+    const shopItemDto = {
+      ...shopItem
+    };
+    for (const key in shopItemDto) {
+      if (key) {
+        formData.append(key, shopItemDto[key]);
+      }
+    }
+    this.http.post<any>(url, formData);
+    return of(null);
   }
 }
 

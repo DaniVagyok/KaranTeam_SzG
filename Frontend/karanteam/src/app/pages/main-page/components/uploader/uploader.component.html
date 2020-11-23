@@ -1,1 +1,8 @@
-<p>uploader works!</p>
+<form [formGroup]="shopItemUploadForm">
+    <input type="text" formControlName="searchValue" placeholder="Search...">
+    <div *ngIf="fileName">{{ fileName }}</div>
+    <button mat-raised-button color="secondary" type="button" (click)="fileInput.click()">
+        Upload image
+        <input #fileInput type="file" (change)="uploadFile($event.target.files)" style="display: none;" />
+    </button>
+</form>

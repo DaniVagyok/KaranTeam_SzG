@@ -16,6 +16,7 @@ import { UploaderComponent } from './pages/main-page/components/uploader/uploade
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { DetailsPageComponent } from './pages/details-page/details-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
     LoginPageComponent,
     MainPageComponent,
     ProfilePageComponent,
-    UploaderComponent
+    UploaderComponent,
+    DetailsPageComponent
   ],
   imports: [
     BrowserModule,
