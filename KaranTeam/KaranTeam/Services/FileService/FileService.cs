@@ -23,10 +23,10 @@ namespace KaranTeam.Services
             Context = context;
         }
 
-        public async Task<IEnumerable<FileListModel>> GetFileList()
+        public async Task<IEnumerable<FileModel>> GetFileList()
         {
             return await Context.Files
-                .Select(f => new FileListModel(f))
+                .Select(f => new FileModel(f))
                 .ToListAsync();
         }
 
@@ -47,19 +47,17 @@ namespace KaranTeam.Services
             return result.Entity;
         }
 
-        public async Task<FileDetailsModel> GetFileById(int fileId)
+        public async Task<FileModel> GetFileById(int fileId)
         {
             return await Context.Files
                 .Where(f => f.Id == fileId)
-                .Select(f => new FileDetailsModel(f))
+                .Select(f => new FileModel(f))
                 .SingleOrDefaultAsync();
         }
 
-        public async Task ModifyFile(FileDetailsModel modifiedFile)
+        public async Task ModifyFile(FileModel modifiedFile)
         {
-            var modifiedEntity = modifiedFile.ToEntity();
-            modifiedEntity.OwnerId = UserManager.GetUserId();
-
+            var modifiedEntity = modifiedFile.ToEntity(UserManager.GetUserId());
             Context.Files.Update(modifiedEntity);
             await Context.SaveChangesAsync();
         }
@@ -76,9 +74,9 @@ namespace KaranTeam.Services
         {
             string path = "~/files/caffs";
 
-            if (!System.IO.Directory.Exists(path))
+            if (!Directory.Exists(path))
             {
-                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+                Directory.CreateDirectory(path); //Create directory if it doesn't exist
             }
 
             var fileName = $"{newFile.Title}_{Context.Files.Count()}.caff";

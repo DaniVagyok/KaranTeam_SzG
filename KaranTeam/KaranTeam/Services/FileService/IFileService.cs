@@ -9,10 +9,10 @@ namespace KaranTeam.Services
 {
     public interface IFileService
     {
-        public Task<IEnumerable<FileListModel>> GetFileList();
+        public Task<IEnumerable<FileModel>> GetFileList();
         public Task<File> UploadFile(NewFileModel newFile);
-        public Task<FileDetailsModel> GetFileById(int fileId);
-        public Task ModifyFile(FileDetailsModel modifiedFile);
+        public Task<FileModel> GetFileById(int fileId);
+        public Task ModifyFile(FileModel modifiedFile);
         public Task RemoveFileById(int fileId);
     }
 }
