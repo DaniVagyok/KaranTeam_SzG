@@ -1,5 +1,6 @@
 ﻿using KaranTeam.Data;
 using KaranTeam.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,26 @@ namespace KaranTeam.Services
         public async Task<IEnumerable<FileListModel>> GetFiles()
         {
             return await Context.Files.Select(f => new FileListModel(f)).ToListAsync();
+        }
+
+        public Task<FileListModel> addFile(string fileUri)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<FileListModel> getFileById(string fileId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IActionResult> downloadFileById(string fileId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task modifyFileById(string fileId, FileListModel modifiedFile)
+        {
+            throw new NotImplementedException();
         }
     }
 }
