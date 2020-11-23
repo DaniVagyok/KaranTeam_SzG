@@ -25,13 +25,8 @@ namespace KaranTeam.Services.Comment
         {
             return await Context.FileComments
                 .Where(fc => fc.FileId == fileId)
-                .Select(fc => new FileCommentModel
-                {
-                    Id = fc.Id,
-                    OwnerName = fc.User.Name,
-                    Content = fc.Content,
-                    CreationDate = fc.CreationDate
-                }).ToListAsync();      
+                .Select(fc => new FileCommentModel(fc))
+                .ToListAsync();      
         }
 
         public async Task<FileComment> AddCommentByFileId(int fileId, string commentContent)
@@ -51,9 +46,13 @@ namespace KaranTeam.Services.Comment
 
         public async Task RemoveCommentById(int commentId)
         {
-            var removableEntity = Context.FileComments.Find(commentId);
-            Context.FileComments.Remove(removableEntity);
-            await Context.SaveChangesAsync();
+            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            if (user.IsAdmin)
+            {
+                var removableEntity = Context.FileComments.Find(commentId);
+                Context.FileComments.Remove(removableEntity);
+                await Context.SaveChangesAsync();
+            }
         }
     }
 }
