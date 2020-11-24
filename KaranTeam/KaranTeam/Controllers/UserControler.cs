@@ -1,4 +1,5 @@
-﻿using KaranTeam.Services;
+﻿using KaranTeam.Models;
+using KaranTeam.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,5 +21,11 @@ namespace KaranTeam.Controllers
         {
             UserService = service;
         }
+
+        [HttpGet("{id}")]
+        public async Task<UserDetailsModel> GetUser(int id) => await UserService.GetUserById(id);
+
+        [HttpPut("{id}")]
+        public async Task ModifyUser(UserDetailsModel modifiedUser) => await UserService.ModifyUser(modifiedUser);;
     }
 }

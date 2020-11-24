@@ -25,7 +25,7 @@ namespace KaranTeam.Controllers
         [HttpPost("{fileId}")]
         public async Task<FileComment> AddComment(int fileId, string comment) => await FileCommentService.AddCommentByFileId(fileId, comment);
 
-        [HttpPost("{id}")]
+        [HttpDelete("{id}")]
         public async Task Remove(int id) => await FileCommentService.RemoveCommentById(id);
     }
 }
