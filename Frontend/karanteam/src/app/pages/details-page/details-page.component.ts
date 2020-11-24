@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MainPageService } from 'src/app/services/main-page.service';
+import { IShopItemModel } from 'src/app/shared/models/shop-item.model';
 
 @Component({
   selector: 'karanteam-details-page',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsPageComponent implements OnInit {
 
-  constructor() { }
+  shopItemId: number;
+  shopItem: IShopItemModel;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private service: MainPageService
+  ) { }
 
   ngOnInit(): void {
+    this.shopItemId = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.service.getShopItemById(this.shopItemId).subscribe(res => this.shopItem = res);
+  }
+
+  downloadImage(): void {
+    // TODO: implement
   }
 
 }

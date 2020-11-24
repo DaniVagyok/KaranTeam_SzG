@@ -12,8 +12,12 @@ export class MainPageService {
     private http: HttpClient
   ) { }
 
-  getShopItems(): Observable<IShopItemModel[]> {
+  getShopItemsList(): Observable<IShopItemModel[]> {
     return of(mock);
+  }
+
+  getShopItemById(shopItemId: number): Observable<IShopItemModel> {
+    return of(mock.find(x => x.id === shopItemId));
   }
 
   uploadShopItem(shopItem: IShopItemModel): Observable<void> {
@@ -37,23 +41,29 @@ export class MainPageService {
 const mock: IShopItemModel[] = [
   {
     id: 1,
-    title: 'Title 1',
+    title: 'Számbizt házi',
     comments: [
       {
         id: 1,
-        comment: 'ASDAD',
+        comment: 'Szerintem meg a PS5 a legjobb!!!444!!NÉGY!!!',
         date: new Date(),
-        ownerName: 'Jóska'
+        ownerName: 'Levi'
       },
       {
         id: 1,
-        comment: 'ASDAD',
+        comment: 'CSAK A PC!!',
         date: new Date(),
-        ownerName: 'Jóska'
-      }
+        ownerName: 'Meczner',
+      },
+      {
+        id: 1,
+        comment: 'Be vagyok b@szva xddd',
+        date: new Date(),
+        ownerName: 'DaniVagyokTshő',
+      },
     ],
-    description: 'Description 1',
-    ownerName: 'Béla',
+    description: 'Itt az új Xbox Series X!',
+    ownerName: 'Vitya',
     imageUrl: 'https://kep.cdn.indexvas.hu/1/0/3207/32070/320704/32070459_68db62359be24ab16b2103d76892be76_wm.jpg'
   },
   {

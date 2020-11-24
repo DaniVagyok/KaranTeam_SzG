@@ -13,4 +13,7 @@ export class ShopItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  downloadImage(): void {
+    // TODO: implement
+  }
 }

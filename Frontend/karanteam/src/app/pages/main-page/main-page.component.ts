@@ -27,7 +27,7 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.service.getShopItems().subscribe(res => {
+    this.service.getShopItemsList().subscribe(res => {
       this.shopItems = res;
       this.searchedItems = res;
     });
