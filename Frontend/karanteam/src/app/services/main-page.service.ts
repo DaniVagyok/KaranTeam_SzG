@@ -37,14 +37,65 @@ export class MainPageService {
 const mock: IShopItemModel[] = [
   {
     id: 1,
-    title: 'Title 1'
+    title: 'Title 1',
+    comments: [
+      {
+        id: 1,
+        comment: 'ASDAD',
+        date: new Date(),
+        ownerName: 'Jóska'
+      },
+      {
+        id: 1,
+        comment: 'ASDAD',
+        date: new Date(),
+        ownerName: 'Jóska'
+      }
+    ],
+    description: 'Description 1',
+    ownerName: 'Béla',
+    imageUrl: 'https://kep.cdn.indexvas.hu/1/0/3207/32070/320704/32070459_68db62359be24ab16b2103d76892be76_wm.jpg'
   },
   {
     id: 2,
-    title: 'Title 2'
+    title: 'Title 2',
+    comments: [
+      {
+        id: 1,
+        comment: 'ASDAD',
+        date: new Date(),
+        ownerName: 'Jóska'
+      },
+      {
+        id: 1,
+        comment: 'ASDAD',
+        date: new Date(),
+        ownerName: 'Jóska'
+      }
+    ],
+    description: 'Description 1',
+    ownerName: 'Béla',
+    imageUrl: 'https://kep.cdn.indexvas.hu/1/0/3207/32070/320704/32070459_68db62359be24ab16b2103d76892be76_wm.jpg'
   },
   {
     id: 3,
-    title: 'Title 3'
-  }
+    title: 'Title 3',
+    comments: [
+      {
+        id: 1,
+        comment: 'ASDAD',
+        date: new Date(),
+        ownerName: 'Jóska'
+      },
+      {
+        id: 1,
+        comment: 'ASDAD',
+        date: new Date(),
+        ownerName: 'Jóska'
+      }
+    ],
+    description: 'Description 1',
+    ownerName: 'Béla',
+    imageUrl: 'https://kep.cdn.indexvas.hu/1/0/3207/32070/320704/32070459_68db62359be24ab16b2103d76892be76_wm.jpg'
+  },
 ];
