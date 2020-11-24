@@ -31,8 +31,7 @@ export class UploaderComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.shopItemUploadForm.value);
-    this.dialogRef.close();
+    this.dialogRef.close(this.shopItemUploadForm.value);
   }
 
   close(): void {

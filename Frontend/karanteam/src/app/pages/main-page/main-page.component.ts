@@ -39,7 +39,7 @@ export class MainPageComponent implements OnInit {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe(result => this.service.uploadShopItem(result));
   }
 
 }
