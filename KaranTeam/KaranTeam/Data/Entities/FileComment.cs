@@ -11,7 +11,7 @@ namespace KaranTeam.Data.Entities
     {
         public int Id { get; set; }
         public int FileId { get; set; }
-        public File File { get; set; }
+        public CaffFile File { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
         public string Content { get; set; }

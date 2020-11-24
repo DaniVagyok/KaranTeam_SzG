@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public interface IFileService
+    public interface ICaffFileService
     {
         public Task<IEnumerable<FileModel>> GetFileList();
         public Task<NewFileModel> UploadFile(NewFileModel newFile);

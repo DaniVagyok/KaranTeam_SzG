@@ -46,7 +46,7 @@ namespace KaranTeam
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ICaffFileService, CaffFileService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<Services.IAuthenticationService, Services.AuthenticationService>();
             services.AddScoped<IUserManager, UserManager>();

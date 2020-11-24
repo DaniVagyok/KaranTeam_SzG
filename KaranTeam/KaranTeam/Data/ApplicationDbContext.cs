@@ -13,7 +13,7 @@ namespace KaranTeam.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<User>
     {
-        public DbSet<File> Files { get; set; }
+        public DbSet<CaffFile> Files { get; set; }
         public DbSet<FileComment> FileComments { get; set; }
         public ApplicationDbContext(
             DbContextOptions options,

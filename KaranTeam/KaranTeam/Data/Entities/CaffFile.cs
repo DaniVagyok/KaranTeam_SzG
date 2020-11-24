@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Data.Entities
 {
-    public class File
+    public class CaffFile
     {
         public int Id { get; set; }
         public string CAFFUri { get; set; }
@@ -18,9 +18,9 @@ namespace KaranTeam.Data.Entities
         public User Owner { get; set; }
         public IEnumerable<FileComment> FileComments { get; set; }
     }
-    public class FileConfig : IEntityTypeConfiguration<File>
+    public class FileConfig : IEntityTypeConfiguration<CaffFile>
     {
-        public void Configure(EntityTypeBuilder<File> builder)
+        public void Configure(EntityTypeBuilder<CaffFile> builder)
         {
             builder.HasOne(f=> f.Owner)
                    .WithMany(l => l.Files)
