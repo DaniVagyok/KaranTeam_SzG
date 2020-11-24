@@ -17,7 +17,7 @@ namespace KaranTeam.Models
         public FileCommentModel(FileComment fileComment)
         {
             this.Id = fileComment.Id;
-            this.OwnerName = fileComment.User.Name;
+            this.OwnerName = fileComment.User.UserName;
             this.Content = fileComment.Content;
             this.CreationDate = fileComment.CreationDate;
         }

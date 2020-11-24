@@ -24,7 +24,7 @@ namespace KaranTeam.Models
 			this.CAFFUri = file.CAFFUri;
 			this.Title = file.Title;
 			this.Description = file.Description;
-			this.OwnerName = file.Owner.Name;
+			this.OwnerName = file.Owner.UserName;
 			this.FileComments = file.FileComments
 				.Select(fc => new FileCommentModel(fc))
 				.ToList();
