@@ -1,4 +1,6 @@
 ﻿using KaranTeam.Data;
+using KaranTeam.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +10,29 @@ namespace KaranTeam.Services
 {
     public class UserService : IUserService
     {
-        private IUserManager FelhasznaloManager { get; }
+        private IUserManager UserManager { get; }
         private ApplicationDbContext Context { get; }
 
         public UserService(ApplicationDbContext context,
-            IUserManager felhasznaloManager)
+            IUserManager userManager)
         {
-            FelhasznaloManager = felhasznaloManager;
+            UserManager = userManager;
             Context = context;
+        }
+
+        public async Task<UserDetailsModel> GetUserById(int userId)
+        {
+            return await Context.Users
+                 .Where(u => u.Id.Equals(userId))
+                 .Select(u => new UserDetailsModel(u))
+                 .SingleOrDefaultAsync();
+        }
+
+        public async Task ModifyUser(UserDetailsModel modifiedUser)
+        {
+            var modifiedEntity = modifiedUser.ToEntity();
+            Context.Users.Update(modifiedEntity);
+            await Context.SaveChangesAsync();
         }
     }
 }
