@@ -17,7 +17,7 @@ namespace KaranTeam.Models
 		public IEnumerable<FileCommentModel> FileComments { get; set; }
 
 		public FileModel() { }
-		public FileModel(File file)
+		public FileModel(CaffFile file)
 		{
 			this.Id = file.Id;
 			this.ThumbnailUri = file.ThumbnailUri;
@@ -30,9 +30,9 @@ namespace KaranTeam.Models
 				.ToList();
 		}
 
-		public File ToEntity(string userId)
+		public CaffFile ToEntity(string userId)
         {
-			return new File
+			return new CaffFile
 			{
 				Id = this.Id,
 				ThumbnailUri = this.ThumbnailUri,

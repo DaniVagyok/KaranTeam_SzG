@@ -12,12 +12,12 @@ using System.IO;
 
 namespace KaranTeam.Services
 {
-    public class FileService : IFileService
+    public class CaffFileService : ICaffFileService
     {
         private IUserManager UserManager { get; }
         private ApplicationDbContext Context { get; }
 
-        public FileService(ApplicationDbContext context, IUserManager userManager)
+        public CaffFileService(ApplicationDbContext context, IUserManager userManager)
         {
             UserManager = userManager;
             Context = context;
@@ -33,7 +33,7 @@ namespace KaranTeam.Services
         public async Task<NewFileModel> UploadFile(NewFileModel newFile)
         {
             var caffUri = SaveCaffFile(newFile);
-            var newEntity = new Data.Entities.File
+            var newEntity = new Data.Entities.CaffFile
             {
                 Id = newFile.Id,
                 CAFFUri = caffUri,
