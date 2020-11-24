@@ -5,6 +5,7 @@ import { MainPageService } from 'src/app/services/main-page.service';
 import { IShopItemModel } from 'src/app/shared/models/shop-item.model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UploaderComponent } from './components/uploader/uploader.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'karanteam-main-page',
@@ -21,7 +22,8 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private service: MainPageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,10 @@ export class MainPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => result ? this.service.uploadShopItem(result) : null);
+  }
+
+  navigateToDetailsPage(shopItemId: number): void {
+    this.router.navigate([`/details/${shopItemId}`]);
   }
 
 }

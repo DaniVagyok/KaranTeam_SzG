@@ -8,5 +8,6 @@
     </form>
 </div>
 <div class="shop-items-wrapper">
-    <karanteam-shop-item *ngFor="let item of searchedItems" [shopItem]="item"></karanteam-shop-item>
+    <karanteam-shop-item *ngFor="let item of searchedItems" [shopItem]="item" (click)="navigateToDetailsPage(item.id)">
+    </karanteam-shop-item>
 </div>
