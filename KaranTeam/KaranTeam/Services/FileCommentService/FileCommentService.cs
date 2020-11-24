@@ -11,11 +11,11 @@ namespace KaranTeam.Services.Comment
 {
     public class FileCommentService: IFileCommentService
     {
-        private IUserManager UserManager { get; }
+        private ILoggedInUser UserManager { get; }
         private ApplicationDbContext Context { get; }
 
         public FileCommentService(ApplicationDbContext context,
-            IUserManager userManager)
+            ILoggedInUser userManager)
         {
             UserManager = userManager;
             Context = context;

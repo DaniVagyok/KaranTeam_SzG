@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using KaranTeam.Data.Entities;
 using KaranTeam.Services;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace KaranTeam
 {
@@ -37,8 +40,24 @@ namespace KaranTeam
             services.AddIdentityServer()
                 .AddApiAuthorization<User, ApplicationDbContext>();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            var key = Encoding.ASCII.GetBytes("development-secret-key"); //TODO kiszervezni app settingsbe
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            }).AddIdentityServerJwt();
             services.AddControllersWithViews();
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
@@ -49,7 +68,7 @@ namespace KaranTeam
             services.AddScoped<ICaffFileService, CaffFileService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<Services.IAuthenticationService, Services.AuthenticationService>();
-            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ILoggedInUser, LoggedInUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

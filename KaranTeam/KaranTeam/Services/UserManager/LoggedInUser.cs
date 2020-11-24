@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace KaranTeam.Services
 {
-    public class UserManager : IUserManager
+    public class LoggedInUser : ILoggedInUser
     {
         private readonly IHttpContextAccessor HttpContextAccessor;
-        public UserManager(IHttpContextAccessor httpContextAccessor)
+        public LoggedInUser(IHttpContextAccessor httpContextAccessor)
         {
             HttpContextAccessor = httpContextAccessor;
         }

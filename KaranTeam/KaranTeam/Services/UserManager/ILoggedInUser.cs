@@ -1,6 +1,6 @@
 ﻿namespace KaranTeam.Services
 {
-    public interface IUserManager
+    public interface ILoggedInUser
     {
         string GetUserId();
     }

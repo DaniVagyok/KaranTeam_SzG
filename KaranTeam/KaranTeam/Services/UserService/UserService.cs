@@ -10,11 +10,11 @@ namespace KaranTeam.Services
 {
     public class UserService : IUserService
     {
-        private IUserManager UserManager { get; }
+        private ILoggedInUser UserManager { get; }
         private ApplicationDbContext Context { get; }
 
         public UserService(ApplicationDbContext context,
-            IUserManager userManager)
+            ILoggedInUser userManager)
         {
             UserManager = userManager;
             Context = context;
@@ -33,6 +33,14 @@ namespace KaranTeam.Services
             var modifiedEntity = modifiedUser.ToEntity();
             Context.Users.Update(modifiedEntity);
             await Context.SaveChangesAsync();
+        }
+
+        public bool IsAdmin()
+        {
+            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            if (user.IsAdmin)
+                return true;
+            return false;
         }
     }
 }

@@ -5,7 +5,8 @@ namespace KaranTeam.Services
 {
     public interface IUserService
     {
-        public Task<UserDetailsModel> GetUserById(int userId);
-        public Task ModifyUser(UserDetailsModel modifiedUser);
+        Task<UserDetailsModel> GetUserById(int userId);
+        Task ModifyUser(UserDetailsModel modifiedUser);
+        bool IsAdmin();
     }
 }

@@ -14,10 +14,10 @@ namespace KaranTeam.Services
 {
     public class CaffFileService : ICaffFileService
     {
-        private IUserManager UserManager { get; }
+        private ILoggedInUser UserManager { get; }
         private ApplicationDbContext Context { get; }
 
-        public CaffFileService(ApplicationDbContext context, IUserManager userManager)
+        public CaffFileService(ApplicationDbContext context, ILoggedInUser userManager)
         {
             UserManager = userManager;
             Context = context;
@@ -33,7 +33,7 @@ namespace KaranTeam.Services
         public async Task<NewFileModel> UploadFile(NewFileModel newFile)
         {
             var caffUri = SaveCaffFile(newFile);
-            var newEntity = new Data.Entities.CaffFile
+            var newEntity = new CaffFile
             {
                 Id = newFile.Id,
                 CAFFUri = caffUri,

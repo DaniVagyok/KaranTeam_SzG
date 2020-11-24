@@ -9,10 +9,10 @@ namespace KaranTeam.Services
 {
     public interface ICaffFileService
     {
-        public Task<IEnumerable<FileModel>> GetFileList();
-        public Task<NewFileModel> UploadFile(NewFileModel newFile);
-        public Task<FileModel> GetFileById(int fileId);
-        public Task ModifyFile(FileModel modifiedFile);
-        public Task RemoveFileById(int fileId);
+        Task<IEnumerable<FileModel>> GetFileList();
+        Task<NewFileModel> UploadFile(NewFileModel newFile);
+        Task<FileModel> GetFileById(int fileId);
+        Task ModifyFile(FileModel modifiedFile);
+        Task RemoveFileById(int fileId);
     }
 }

@@ -11,7 +11,6 @@ namespace KaranTeam.Controllers
     [Consumes("application/json")]
     [Route("api/auth")]
     [ApiController]
-    [Authorize]
     public class AuthorizationController : ControllerBase
     {
         public IAuthorizationService AuthorizationService { get; }
