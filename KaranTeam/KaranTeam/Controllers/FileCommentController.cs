@@ -1,4 +1,5 @@
-﻿using KaranTeam.Services;
+﻿using KaranTeam.Data.Entities;
+using KaranTeam.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,5 +21,11 @@ namespace KaranTeam.Controllers
         {
             FileCommentService = service;
         }
+
+        [HttpPost("{fileId}")]
+        public async Task<FileComment> AddComment(int fileId, string comment) => await FileCommentService.AddCommentByFileId(fileId, comment);
+
+        [HttpPost("{id}")]
+        public async Task Remove(int id) => await FileCommentService.RemoveCommentById(id);
     }
 }
