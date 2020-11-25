@@ -91,7 +91,7 @@ namespace KaranTeam.Services
             string filePath = Path.Combine(path, fileName);
             byte[] fileBytes = Convert.FromBase64String(newFile.FileBase64String);
 
-            System.IO.File.WriteAllBytes(filePath, fileBytes);
+            File.WriteAllBytes(filePath, fileBytes);
 
             return filePath;
         }
