@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
     ifstream myfile;
     try
     {
-        myfile.open(argv[1], ios::in | ios::binary); //Change file destination
+        myfile.open(argv[1], ios::in | ios::binary);
         CaffBlock caffBlock;
         myfile.read((char*)&caffBlock.id, 1);
         myfile.read((char*)&caffBlock.length, 8);
@@ -156,7 +156,6 @@ int main(int argc, char* argv[])
             myfile.read((char*)&innerCaffBlock.length, sizeof(innerCaffBlock.length));
             if (innerCaffBlock.id == '\x02')
             {
-                // TODO: Sometihng wrong with data conversion
                 CaffCredits caffCredits;
                 myfile.read((char*)&caffCredits.year, 2);
                 myfile.read((char*)&caffCredits.month, 1);
