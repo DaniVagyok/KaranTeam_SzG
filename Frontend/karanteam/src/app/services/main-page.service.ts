@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { IShopItemModel } from '../shared/models/shop-item.model';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { IShopItemModel } from '../shared/models/shop-item.model';
 })
 export class MainPageService {
 
+  baseUrl = environment.baseUrl;
   constructor(
     private http: HttpClient
   ) { }
