@@ -2,7 +2,7 @@
 # Build and run the instrumented executable
 
 # AFL installation path, modify as required
-AFL=/Users/pribelszkilevente/Documents/Developer/Saját/KaranTeam_SzG/NativeComponent/CiffCaffParser-fuzz/AFL
+AFL=~/NativeComponent/CiffCaffParser-fuzz/AFL
 
 # Use AFL as a compile front-end
 export CC=$AFL/afl-clang
