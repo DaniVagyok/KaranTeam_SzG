@@ -46,7 +46,7 @@ namespace KaranTeam.Services.Comment
 
         public async Task RemoveCommentById(int commentId)
         {
-            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            var user = await Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefaultAsync();
             if (user.IsAdmin)
             {
                 var removableEntity = Context.FileComments.Find(commentId);

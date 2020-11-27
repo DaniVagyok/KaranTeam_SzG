@@ -9,18 +9,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace KaranTeam.Services
 {
     public class CaffFileService : ICaffFileService
     {
         private ILoggedInUser UserManager { get; }
+        private IWebHostEnvironment Env { get; }
         private ApplicationDbContext Context { get; }
 
-        public CaffFileService(ApplicationDbContext context, ILoggedInUser userManager)
+        public CaffFileService(ApplicationDbContext context, ILoggedInUser userManager, IWebHostEnvironment env)
         {
             UserManager = userManager;
             Context = context;
+            Env = env;
         }
 
         public async Task<IEnumerable<FileModel>> GetFileList()
@@ -33,10 +36,11 @@ namespace KaranTeam.Services
         public async Task<NewFileModel> UploadFile(NewFileModel newFile)
         {
             var caffUri = SaveCaffFile(newFile);
+            var thumbnailUri = GenerateThumbnail(newFile, caffUri);
             var newEntity = new CaffFile
             {
-                Id = newFile.Id,
                 CAFFUri = caffUri,
+                ThumbnailUri = thumbnailUri,
                 Title = newFile.Title,
                 Description = newFile.Description,
                 OwnerId = UserManager.GetUserId()
@@ -47,7 +51,7 @@ namespace KaranTeam.Services
             return newFile;
         }
 
-        public async Task<FileModel> GetFileById(int fileId)
+        public async Task<FileModel> GetFileDetails(int fileId)
         {
             return await Context.Files
                 .Where(f => f.Id == fileId)
@@ -55,20 +59,48 @@ namespace KaranTeam.Services
                 .SingleOrDefaultAsync();
         }
 
-        public async Task ModifyFile(FileModel modifiedFile)
+        public async Task<FileDownloadModel> GetFileDownload(int fileId)
         {
-            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            var file = await Context.Files.SingleOrDefaultAsync(f => f.Id == fileId);
+            var fileInfo = new FileInfo(file.CAFFUri);
+
+            return new FileDownloadModel
+            {
+                Content = File.ReadAllBytes(fileInfo.FullName),
+                FileName = fileInfo.Name,
+                ContentType = "application/octet-stream"
+            };
+        }
+
+        public async Task<FileDownloadModel> GetFileThumbnail(int fileId)
+        {
+            var file = await Context.Files.SingleOrDefaultAsync(f => f.Id == fileId);
+            var fileInfo = new FileInfo(file.ThumbnailUri);
+
+            return new FileDownloadModel
+            {
+                Content = File.ReadAllBytes(fileInfo.FullName),
+                FileName = fileInfo.Name,
+                ContentType = "image/bmp"
+            };
+        }
+
+        public async Task ModifyFile(int id, FileModel modifiedFile)
+        {
+            var user = await Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefaultAsync();
             if (user.IsAdmin)
             {
-                var modifiedEntity = modifiedFile.ToEntity(UserManager.GetUserId());
-                Context.Files.Update(modifiedEntity);
+                var file = await Context.Files.SingleOrDefaultAsync(f => f.Id == id);
+                file.Title = modifiedFile.Title;
+                file.Description = modifiedFile.Description;
+                Context.Files.Update(file);
                 await Context.SaveChangesAsync();
             }
         }
 
         public async Task RemoveFileById(int fileId)
         {
-            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            var user = await Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefaultAsync();
             if (user.IsAdmin)
             {
                 var removableEntity = Context.Files.Find(fileId);
@@ -80,18 +112,36 @@ namespace KaranTeam.Services
         // https://stackoverflow.com/a/39394266
         private string SaveCaffFile(NewFileModel newFile)
         {
-            string path = "~/files/caffs";
+            var subFolder = @"files\caffs";
+            string path = Path.Combine(Env.ContentRootPath, subFolder);
 
             if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path); //Create directory if it doesn't exist
-            }
+                Directory.CreateDirectory(path);
 
             var fileName = $"{newFile.Title}_{Context.Files.Count()}.caff";
             string filePath = Path.Combine(path, fileName);
-            byte[] fileBytes = Convert.FromBase64String(newFile.FileBase64String);
 
-            File.WriteAllBytes(filePath, fileBytes);
+            byte[] fileBytes;
+            using (var ms = new MemoryStream())
+            {
+                newFile.File.CopyTo(ms);
+                fileBytes = ms.ToArray();
+                File.WriteAllBytes(filePath, fileBytes);
+            }
+            return filePath;
+        }
+        private string GenerateThumbnail(NewFileModel newFile, string uri)
+        {
+            var subFolder = @"files\thumbnails";
+            string path = Path.Combine(Env.ContentRootPath, subFolder);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            var fileName = $"{newFile.Title}_{Context.Files.Count()}.bmp";
+            string filePath = Path.Combine(path, fileName);
+
+            // Thumbnail generálás hivása ide
 
             return filePath;
         }

@@ -24,17 +24,23 @@ namespace KaranTeam.Controllers
         public async Task<IEnumerable<FileModel>> GetCaffFiles() => await CaffFileService.GetFileList();
 
         [HttpGet("{id}")]
-        public async Task<FileModel> GetFileById(int id) => await CaffFileService.GetFileById(id);
+        public async Task<FileModel> GetFileDetailsById(int id) => await CaffFileService.GetFileDetails(id);
+
+        [HttpGet("{id/download}")]
+        public async Task<FileDownloadModel> GetFileDownloadById(int id) => await CaffFileService.GetFileDownload(id);
+
+        [HttpGet("{id/thumbnail}")]
+        public async Task<FileDownloadModel> GetFileThumbnailById(int id) => await CaffFileService.GetFileThumbnail(id);
 
         [HttpPut("{id}")]
-        public async Task ModifyFile(FileModel modifiedFile) => await CaffFileService.ModifyFile(modifiedFile);
+        public async Task ModifyFile(int id, FileModel modifiedFile) => await CaffFileService.ModifyFile(id, modifiedFile);
 
         [HttpDelete("{id}")]
         public async Task Remove(int id) => await CaffFileService.RemoveFileById(id);
 
-        // TODO: Change to form data
+        [Consumes("multipart/form-data")]
         [HttpPost]
-        public async Task<NewFileModel> UploadFile(NewFileModel newFile) => await CaffFileService.UploadFile(newFile);
+        public async Task UploadFile([FromForm] NewFileModel newFile) => await CaffFileService.UploadFile(newFile);
 
     }
 }

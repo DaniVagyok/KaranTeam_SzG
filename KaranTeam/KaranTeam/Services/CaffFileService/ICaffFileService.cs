@@ -11,8 +11,10 @@ namespace KaranTeam.Services
     {
         Task<IEnumerable<FileModel>> GetFileList();
         Task<NewFileModel> UploadFile(NewFileModel newFile);
-        Task<FileModel> GetFileById(int fileId);
-        Task ModifyFile(FileModel modifiedFile);
+        Task<FileModel> GetFileDetails(int fileId);
+        Task<FileDownloadModel> GetFileDownload(int fileId);
+        Task<FileDownloadModel> GetFileThumbnail(int fileId);
+        Task ModifyFile(int id, FileModel modifiedFile);
         Task RemoveFileById(int fileId);
     }
 }
