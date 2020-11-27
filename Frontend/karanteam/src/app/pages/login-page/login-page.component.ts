@@ -22,10 +22,10 @@ export class LoginPageComponent implements OnInit {
 
   loginUser(): void {
     // TODO: ezt a sort majd átrakni a subscribe-ba
-    this.router.navigate(['/main']);
+    // this.router.navigate(['/main']);
     this.auth.loginUser(this.loginUserData)
       .subscribe(res => {
-        console.log(res);
+        console.log('Login res', res);
       },
         err => console.log(err)
       );
