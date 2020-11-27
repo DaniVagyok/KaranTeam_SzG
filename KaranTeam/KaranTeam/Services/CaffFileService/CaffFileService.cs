@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
 
 namespace KaranTeam.Services
 {
@@ -141,7 +142,23 @@ namespace KaranTeam.Services
             var fileName = $"{newFile.Title}_{Context.Files.Count()}.bmp";
             string filePath = Path.Combine(path, fileName);
 
-            // Thumbnail generálás hivása ide
+            /*ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = false;
+            startInfo.UseShellExecute = false;
+            startInfo.FileName = Path.Combine(Env.ContentRootPath, @"Parser\parser.exe");
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.Arguments = uri +" "+ filePath;
+
+            try
+            {
+                using (Process exeProcess = Process.Start(startInfo))
+                {
+                    exeProcess.WaitForExit();
+                }
+            }
+            catch
+            {
+            }*/
 
             return filePath;
         }
