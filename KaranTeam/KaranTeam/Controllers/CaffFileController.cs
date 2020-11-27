@@ -26,7 +26,7 @@ namespace KaranTeam.Controllers
         [HttpGet("{id}")]
         public async Task<FileModel> GetFileDetailsById(int id) => await CaffFileService.GetFileDetails(id);
 
-        [HttpGet("{id/download}")]
+        [HttpGet("{id}/download")]
         public async Task<IActionResult> GetFileDownloadById(int id)
         {
             var model = await CaffFileService.GetFileDownload(id);
@@ -34,7 +34,7 @@ namespace KaranTeam.Controllers
             return File(model.Content, model.ContentType, model.FileName);
         }
 
-        [HttpGet("{id/thumbnail}")]
+        [HttpGet("{id}/thumbnail")]
         public async Task<IActionResult> GetFileThumbnailById(int id)
         {
             var model = await CaffFileService.GetFileThumbnail(id);
