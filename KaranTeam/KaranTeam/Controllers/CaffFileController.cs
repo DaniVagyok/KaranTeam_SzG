@@ -27,10 +27,20 @@ namespace KaranTeam.Controllers
         public async Task<FileModel> GetFileDetailsById(int id) => await CaffFileService.GetFileDetails(id);
 
         [HttpGet("{id/download}")]
-        public async Task<FileDownloadModel> GetFileDownloadById(int id) => await CaffFileService.GetFileDownload(id);
+        public async Task<IActionResult> GetFileDownloadById(int id)
+        {
+            var model = await CaffFileService.GetFileDownload(id);
+
+            return File(model.Content, model.ContentType, model.FileName);
+        }
 
         [HttpGet("{id/thumbnail}")]
-        public async Task<FileDownloadModel> GetFileThumbnailById(int id) => await CaffFileService.GetFileThumbnail(id);
+        public async Task<IActionResult> GetFileThumbnailById(int id)
+        {
+            var model = await CaffFileService.GetFileThumbnail(id);
+
+            return File(model.Content, model.ContentType, model.FileName);
+        }
 
         [HttpPut("{id}")]
         public async Task ModifyFile(int id, FileModel modifiedFile) => await CaffFileService.ModifyFile(id, modifiedFile);
