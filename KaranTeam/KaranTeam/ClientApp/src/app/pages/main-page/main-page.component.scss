@@ -1,0 +1,21 @@
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+}
+.search-bar {
+    input {
+        width: 100%;
+    }
+}
+.shop-items-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+button {
+    display: block;
+    margin: 15px auto;
+    overflow-y: auto;
+}

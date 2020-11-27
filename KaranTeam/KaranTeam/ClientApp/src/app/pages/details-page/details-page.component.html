@@ -1,0 +1,15 @@
+<div class="title">{{ shopItem.title }}</div>
+<div class="image-wrapper">
+    <img [attr.src]="shopItem.imageUrl" alt="Image">
+</div>
+<div class="title">{{ shopItem.ownerName }}</div>
+<div class="description">{{ shopItem.description }}</div>
+<div>Comments:</div>
+<div class="comments">
+    <div class="comment-wrapper" *ngFor="let comment of shopItem.fileComments">
+        <div class="comment-owner">{{ comment.ownerName }}</div>
+        <div class="comment">{{ comment.content }} </div>
+        <div class="comment-date">{{ comment.creationDate }}</div>
+    </div>
+</div>
+<button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>

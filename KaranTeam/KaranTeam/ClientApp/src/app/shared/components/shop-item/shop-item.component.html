@@ -1,0 +1,17 @@
+<div class="title">
+    {{ shopItem.title }}
+</div>
+<div class="image-wrapper" *ngIf="shopItem.imageUrl">
+    <img [attr.src]="shopItem.imageUrl" alt="CIFF/CAFF">
+</div>
+<div class="custom-footer">
+    <div class="owner-name">
+        {{ shopItem.ownerName }}
+    </div>
+    <div class="comment-counter" *ngIf="shopItem.fileComments">
+        Comments: {{ shopItem.fileComments.length }}
+    </div>
+</div>
+<div class="download-button-wrapper">
+    <button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>
+</div>

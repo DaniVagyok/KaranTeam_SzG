@@ -1,0 +1,13 @@
+<div class="title">
+    Main page
+</div>
+<button mat-raised-button color="secondary" (click)="openDialog()">Upload image</button>
+<div class="search-bar">
+    <form [formGroup]="searchForm">
+        <input type="text" formControlName="searchValue" placeholder="Search...">
+    </form>
+</div>
+<div class="shop-items-wrapper">
+    <karanteam-shop-item *ngFor="let item of searchedItems" [shopItem]="item" (click)="navigateToDetailsPage(item.id)">
+    </karanteam-shop-item>
+</div>
