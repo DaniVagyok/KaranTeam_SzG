@@ -21,8 +21,15 @@ export class ProfileService {
    ****************/
   // Elméletileg kész
   getUserData(): Observable<User> {
-    const userId = jwt_decode(this.getLocalToken())['id'];
-    const url = this.baseUrl + `api/user/${userId}`;
+    const url = this.baseUrl + `api/user`;
+    return this.http.get<User>(url);
+
+    // Ez csak tesztelés miatt van benne. Ki lehet szedni ha megy minden
+    return of(mock);
+  }
+
+  getUserDataById(id: string): Observable<User> {
+    const url = this.baseUrl + `api/user/${id}`;
     return this.http.get<User>(url);
 
     // Ez csak tesztelés miatt van benne. Ki lehet szedni ha megy minden
