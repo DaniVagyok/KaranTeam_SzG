@@ -30,12 +30,21 @@ export class ProfilePageComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.modifyForm.value.username)
-      this.userData.userName = this.modifyForm.value.username
-    if (this.modifyForm.value.email)
-      this.userData.userName = this.modifyForm.value.email
-    if (this.modifyForm.value.password)
-      this.userData.userName = this.modifyForm.value.password
+    if (this.modifyForm.value.username){
+      this.userData.userName = this.modifyForm.value.username;
+      //this.profileService.modifyUserData({id: this.userData.id, email: this.userData.email, userName: this.modifyForm.value.username, password: this.userData.password});
+    }
+    if (this.modifyForm.value.email){
+      this.userData.email = this.modifyForm.value.email;
+      //this.profileService.modifyUserData({id: this.userData.id, email: this.modifyForm.value.email, userName: this.userData.userName, password: this.userData.password});
+    }
+    if (this.modifyForm.value.password){
+      this.userData.password = this.modifyForm.value.password;
+      //this.profileService.modifyUserData({id: this.userData.id, email: this.userData.email, userName: this.userData.userName, password: this.modifyForm.value.password});
+    }
+    if(this.modifyForm.value.username || this.modifyForm.value.email || this.modifyForm.value.password){
+      this.profileService.modifyUserData({id: this.userData.id, email: this.userData.email, userName: this.userData.userName, password: this.userData.password});
+    }
   }
 
 }
