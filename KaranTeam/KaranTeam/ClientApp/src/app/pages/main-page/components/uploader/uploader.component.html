@@ -1,0 +1,22 @@
+<form [formGroup]="shopItemUploadForm">
+    <div class="main-title">New item</div>
+    <div class="input-wrapper">
+        <input type="text" placeholder="Title" formControlName="title">
+    </div>
+    <div class="input-wrapper">
+        <input type="text" placeholder="Description" formControlName="description">
+    </div>
+    <div *ngIf="fileName">{{ fileName }}</div>
+    <button mat-raised-button color="secondary" type="button" (click)="fileInput.click()">
+        Upload image
+        <input #fileInput type="file" (change)="uploadFile($event.target.files)" style="display: none;" />
+    </button>
+</form>
+<div class="footer">
+    <button mat-raised-button color="secondary" type="button" (click)="close()">
+        Close
+    </button>
+    <button mat-raised-button color="primary" type="button" (click)="save()">
+        Save
+    </button>
+</div>
