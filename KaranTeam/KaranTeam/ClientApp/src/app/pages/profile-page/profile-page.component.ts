@@ -31,11 +31,11 @@ export class ProfilePageComponent implements OnInit {
 
   onSubmit() {
     if (this.modifyForm.value.username)
-      this.userData.username = this.modifyForm.value.username
+      this.userData.userName = this.modifyForm.value.username
     if (this.modifyForm.value.email)
-      this.userData.username = this.modifyForm.value.email
+      this.userData.userName = this.modifyForm.value.email
     if (this.modifyForm.value.password)
-      this.userData.username = this.modifyForm.value.password
+      this.userData.userName = this.modifyForm.value.password
   }
 
 }
