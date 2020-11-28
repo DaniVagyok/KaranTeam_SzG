@@ -190,5 +190,5 @@ Temporary Items
 /.vs
 /NativeComponent/CiffCaffParser-fuzz/out/build/x64-Debug (default)/.cmake/api/v1/query/client-MicrosoftVS
 /NativeComponent/CiffCaffParser-fuzz/out/build/x64-Debug (default)
-/KaranTeam/KaranTeam/files/caffs
-/KaranTeam/KaranTeam/files/thumbnails
+/KaranTeam/KaranTeam/files
+!/KaranTeam/KaranTeam/Parser/*

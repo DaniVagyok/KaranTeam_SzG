@@ -119,7 +119,7 @@ namespace KaranTeam.Services
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var fileName = $"{Context.Files.Count()}_{newFile.File.Name}";
+            var fileName = $"{Context.Files.Count()}_{newFile.Title}.caff";
             string filePath = Path.Combine(path, fileName);
 
             byte[] fileBytes;
@@ -139,14 +139,14 @@ namespace KaranTeam.Services
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var fileName = $"{Context.Files.Count()}_{newFile.Title}.bmp";
+            var fileName = $"{Context.Files.Count()}_{newFile.File.FileName}.bmp";
             string filePath = Path.Combine(path, fileName);
 
-            /*ProcessStartInfo startInfo = new ProcessStartInfo();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
-            startInfo.FileName = Path.Combine(Env.ContentRootPath, @"Parser\parser.exe");
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.FileName = Path.Combine(Env.ContentRootPath, @"Parser\CiffCaffParser.exe");
+            startInfo.WindowStyle = ProcessWindowStyle.Normal;
             startInfo.Arguments = uri +" "+ filePath;
 
             try
@@ -158,8 +158,8 @@ namespace KaranTeam.Services
             }
             catch
             {
-                filePath = "https://via.placeholder.com/150";
-            }*/
+                filePath = Path.Combine(path, "no-thumbnail.bmp");
+            }
 
             return filePath;
         }
