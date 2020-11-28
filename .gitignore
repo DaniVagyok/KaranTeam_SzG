@@ -186,3 +186,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+/.vs
+/NativeComponent/CiffCaffParser-fuzz/out/build/x64-Debug (default)/.cmake/api/v1/query/client-MicrosoftVS
+/NativeComponent/CiffCaffParser-fuzz/out/build/x64-Debug (default)
