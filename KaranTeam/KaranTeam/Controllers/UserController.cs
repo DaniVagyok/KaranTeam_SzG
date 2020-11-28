@@ -19,6 +19,8 @@ namespace KaranTeam.Controllers
             UserService = service;
         }
 
+        [HttpGet]
+        public async Task<UserDetailsModel> GetUser() => await UserService.GetUserById();
         [HttpGet("{id}")]
         public async Task<UserDetailsModel> GetUser(int id) => await UserService.GetUserById(id);
 
