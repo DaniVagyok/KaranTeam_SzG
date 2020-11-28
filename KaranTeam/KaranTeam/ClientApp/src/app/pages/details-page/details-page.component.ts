@@ -34,15 +34,13 @@ export class DetailsPageComponent implements OnInit {
     () => this.isLoading = false);
   }
 
-  downloadImage(): void {
-    // TODO: implement
+  downloadImage() {
+    this.service.downloadCiffCaffFile(this.shopItemId);
   }
 
   addComment(){
-    this.shopItem.fileComments.push({id: this.shopItem.fileComments.length+1, ownerName: this.userData.userName, content: this.commentToAdd, creationDate: new Date() })
+    this.service.addComment(this.commentToAdd, this.shopItem);
     this.commentToAdd='';
-    console.log(this.shopItem);
-    this.service.updateShopItem(this.shopItem);
   }
 
 }
