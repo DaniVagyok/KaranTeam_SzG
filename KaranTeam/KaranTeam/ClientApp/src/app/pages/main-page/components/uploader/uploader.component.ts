@@ -13,7 +13,7 @@ export class UploaderComponent implements OnInit {
   shopItemUploadForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     description: new FormControl(''),
-    imageFile: new FormControl(null),
+    file: new FormControl(null),
   });
   constructor(
     public dialogRef: MatDialogRef<UploaderComponent>,
@@ -27,7 +27,7 @@ export class UploaderComponent implements OnInit {
       return;
     }
     this.fileName = files.item(0).name;
-    this.shopItemUploadForm.controls.imageFile.setValue(files.item(0));
+    this.shopItemUploadForm.controls.file.setValue(files.item(0));
   }
 
   save(): void {

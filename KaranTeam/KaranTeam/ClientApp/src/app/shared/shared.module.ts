@@ -6,12 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SecurePipe } from '../pipes/secure.pipe';
 
 
 
 @NgModule({
   declarations: [
-    ShopItemComponent
+    ShopItemComponent,
+    SecurePipe
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule
   ],
   exports: [
-    ShopItemComponent
+    ShopItemComponent,
+    SecurePipe
   ]
 })
 export class SharedModule { }

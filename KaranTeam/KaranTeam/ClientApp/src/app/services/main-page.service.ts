@@ -63,7 +63,7 @@ export class MainPageService {
   // Így kell form data-t feltölteni
   uploadShopItem(shopItem: IShopItemModel): Observable<void> {
     // mock.push(shopItem);
-    const url = this.baseUrl + 'api/caff/multipart/form-data';
+    const url = this.baseUrl + 'api/caff';
     const formData = new FormData();
     const shopItemDto = {
       ...shopItem

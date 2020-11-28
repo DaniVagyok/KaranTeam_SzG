@@ -1,11 +1,11 @@
 <div class="title">{{ shopItem.title }}</div>
 <div class="image-wrapper">
-    <img src="{{shopItem.imageUrl}}" alt="Image">
+    <img [attr.src]="thumbnailUri | secure | async" alt="Image">
 </div>
 <div class="title">{{ shopItem.ownerName }}</div>
 <div class="description">{{ shopItem.description }}</div>
 <div>Comments:</div>
-<div class="comments">
+<div class="comments" *ngIf="shopItem && shopItem.comments">
     <div class="comment-wrapper" *ngFor="let comment of shopItem.comments">
         <div class="comment-owner">{{ comment.ownerName }}</div>
         <div class="comment">{{ comment.comment }} </div>

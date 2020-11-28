@@ -1,8 +1,8 @@
 <div class="title">
     {{ shopItem.title }}
 </div>
-<div class="image-wrapper" *ngIf="shopItem.imageUrl">
-    <img src="{{shopItem.imageUrl}}" alt="CIFF/CAFF">
+<div class="image-wrapper">
+    <img [attr.src]="thumbnailUri | secure | async" alt="CIFF/CAFF" />
 </div>
 <div class="custom-footer">
     <div class="owner-name">

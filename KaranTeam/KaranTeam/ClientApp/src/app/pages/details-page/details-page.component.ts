@@ -9,7 +9,7 @@ import { IShopItemModel } from 'src/app/shared/models/shop-item.model';
   styleUrls: ['./details-page.component.scss']
 })
 export class DetailsPageComponent implements OnInit {
-
+  thumbnailUri: string;
   shopItemId: number;
   shopItem: IShopItemModel;
   constructor(
@@ -19,7 +19,10 @@ export class DetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.shopItemId = +this.activatedRoute.snapshot.paramMap.get('id');
-    this.service.getShopItemById(this.shopItemId).subscribe(res => this.shopItem = res);
+    this.service.getShopItemById(this.shopItemId).subscribe(res => {
+      this.shopItem = res;
+      this.thumbnailUri = `api/caff/${this.shopItem.id}/thumbnail`;
+    });
   }
 
   downloadImage(): void {

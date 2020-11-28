@@ -41,7 +41,16 @@ export class MainPageComponent implements OnInit {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(result => result ? this.service.uploadShopItem(result) : null);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.uploadShopItem(result).subscribe(() => {
+          this.service.getShopItemsList().subscribe(res => {
+            this.shopItems = res;
+            this.searchedItems = res;
+          });
+        });
+      }
+    });
   }
 
   navigateToDetailsPage(shopItemId: number): void {

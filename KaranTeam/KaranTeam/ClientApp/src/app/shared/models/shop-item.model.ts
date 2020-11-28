@@ -7,6 +7,12 @@ export interface IShopItemModel {
     ownerName?: string;
 }
 
+export interface INewShopItemModel {
+    title: string;
+    description: string;
+    file: File;
+}
+
 export interface ICommentMondel {
     id: number;
     ownerName: string;
