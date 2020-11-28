@@ -161,7 +161,7 @@ namespace KaranTeam.Services
                 filePath = Path.Combine(path, "no-thumbnail");
             }
 
-            return Path.Combine(filePath, ".bmp");
+            return filePath + ".bmp";
         }
     }
 }
