@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from "./services/auth.service";
 
 @Component({
   selector: 'karanteam-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'karanteam';
+
+  constructor(public authService:AuthService){}
 }

@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DetailsPageComponent } from './pages/details-page/details-page.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { AuthGuard } from './services/auth-guard';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
   ],
   providers: [
     AuthService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

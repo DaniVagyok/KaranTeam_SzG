@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginPageComponent implements OnInit {
 
   loginUserData: any = {};
+  private tokenString = 'token';
 
   constructor(
     private auth: AuthService,
@@ -21,14 +22,19 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginUser(): void {
-    // TODO: ezt a sort majd átrakni a subscribe-ba
-    // this.router.navigate(['/main']);
     this.auth.loginUser(this.loginUserData)
       .subscribe(res => {
         console.log('Login res', res);
+        this.setLocalToken(res);
+        //localStorage.setItem('token', res.token);
+        this.router.navigate(['/main']);
       },
         err => console.log(err)
       );
+  }
+
+  setLocalToken(token: string): void {
+    localStorage.setItem(this.tokenString, token);
   }
 
 }
