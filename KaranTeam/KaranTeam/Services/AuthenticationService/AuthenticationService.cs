@@ -48,7 +48,7 @@ namespace KaranTeam.Services
         }
         public async Task<string> Login(LoginModel model)
         {
-            var user = Context.Users.SingleOrDefault(x => x.UserName == model.UserName);
+            var user = await UserManager.FindByEmailAsync(model.Email);
 
             if (user == null)
                 return null;
