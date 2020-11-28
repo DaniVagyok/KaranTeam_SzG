@@ -45,7 +45,7 @@ export class ProfileService {
 
 const mock: User = {
   id: 1,
-  username: 'dzsudzsák',
+  userName: 'dzsudzsák',
   email: 'a@EMAIL.com',
   password: 'a',
 };
