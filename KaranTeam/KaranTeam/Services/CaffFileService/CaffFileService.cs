@@ -29,7 +29,7 @@ namespace KaranTeam.Services
 
         public async Task<IEnumerable<FileModel>> GetFileList()
         {
-            return await Context.Files
+            return await Context.Files.Include(f => f.Owner).Include(f => f.FileComments).ThenInclude(fc => fc.User)
                 .Select(f => new FileModel(f))
                 .ToListAsync();
         }
@@ -54,7 +54,7 @@ namespace KaranTeam.Services
 
         public async Task<FileModel> GetFileDetails(int fileId)
         {
-            return await Context.Files
+            return await Context.Files.Include(f=>f.Owner).Include(f=>f.FileComments).ThenInclude(fc=>fc.User)
                 .Where(f => f.Id == fileId)
                 .Select(f => new FileModel(f))
                 .SingleOrDefaultAsync();
@@ -119,7 +119,7 @@ namespace KaranTeam.Services
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var fileName = $"{newFile.Title}_{Context.Files.Count()}.caff";
+            var fileName = $"{Context.Files.Count()}_{newFile.File.Name}";
             string filePath = Path.Combine(path, fileName);
 
             byte[] fileBytes;
@@ -139,7 +139,7 @@ namespace KaranTeam.Services
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var fileName = $"{newFile.Title}_{Context.Files.Count()}.bmp";
+            var fileName = $"{Context.Files.Count()}_{newFile.Title}.bmp";
             string filePath = Path.Combine(path, fileName);
 
             /*ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -158,6 +158,7 @@ namespace KaranTeam.Services
             }
             catch
             {
+                filePath = "https://via.placeholder.com/150";
             }*/
 
             return filePath;

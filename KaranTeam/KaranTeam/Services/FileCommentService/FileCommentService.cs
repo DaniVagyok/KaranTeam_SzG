@@ -23,7 +23,7 @@ namespace KaranTeam.Services.Comment
 
         public async Task<IEnumerable<FileCommentModel>> GetCommentsByFileId(int fileId)
         {
-            return await Context.FileComments
+            return await Context.FileComments.Include(fc=>fc.User)
                 .Where(fc => fc.FileId == fileId)
                 .Select(fc => new FileCommentModel(fc))
                 .ToListAsync();      
