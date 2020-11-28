@@ -20,7 +20,7 @@ export class AuthService {
   loginUser(user: User): any {
     const url = this.baseUrl + 'api/auth/login';
     return this.http.post<any>(url, user).pipe(
-      tap(res => this.setLocalToken(res.token))
+      tap(res => this.setLocalToken(res))
     );
   }
 
