@@ -10,13 +10,14 @@ export class TokenInterceptorService implements HttpInterceptor{
 
   constructor(private injector: Injector) { }
 
-  intercept(req, next){
-    let authService = this.injector.get(AuthService)
+  intercept(req, next) {
+    let authService = this.injector.get(AuthService);
+    console.log('itt');
     let tokenizedReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${authService.getToken()}`
+        Authorization: `Bearer ${authService.getLocalToken()}`
       }
-    })
-    return next.handle(tokenizedReq)
+    });
+    return next.handle(tokenizedReq);
   }
 }

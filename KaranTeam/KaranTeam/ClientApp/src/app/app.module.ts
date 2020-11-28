@@ -44,6 +44,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   providers: [
     AuthService
   ],
+  entryComponents: [
+    UploaderComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
