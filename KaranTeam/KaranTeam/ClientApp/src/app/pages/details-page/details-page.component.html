@@ -1,17 +1,19 @@
 <div *ngIf="!isLoading">
-<div class="title">{{ shopItem.title }}</div>
-<div class="image-wrapper">
-    <img [attr.src]="thumbnailUri | secure | async" alt="Image">
-</div>
-<div class="title">{{ shopItem.ownerName }}</div>
-<div class="description">{{ shopItem.description }}</div>
-<div>Comments:</div>
-<div class="comments" *ngIf="shopItem && shopItem.comments">
-    <div class="comment-wrapper" *ngFor="let comment of shopItem.comments">
-        <div class="comment-owner">{{ comment.ownerName }}</div>
-        <div class="comment">{{ comment.comment }} </div>
-        <div class="comment-date">{{ comment.date }}</div>
+    <div class="title">{{ shopItem.title }}</div>
+    <div class="image-wrapper">
+        <img [attr.src]="thumbnailUri | secure | async" alt="Image">
     </div>
-</div>
-<button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>
+    <button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>
+    <div class="title">Feltöltötte: {{ shopItem.ownerName }}</div>
+    <div class="description">Leírás: {{ shopItem.description }}</div>
+    <input type="text" [(ngModel)]="commentToAdd" placeholder="Komment írása">
+    <button class="btn btn-dark" (click)="addComment()">Megjegyzés írása</button>
+    <div>Megjegyzések</div>
+    <div class="comments" *ngIf="shopItem && shopItem.comments">
+        <div class="comment-wrapper" *ngFor="let comment of shopItem.comments">
+            <div class="comment-owner">{{ comment.ownerName }}</div>
+            <div class="comment">{{ comment.comment }} </div>
+            <div class="comment-date">{{ comment.date }}</div>
+        </div>
+    </div>
 </div>
