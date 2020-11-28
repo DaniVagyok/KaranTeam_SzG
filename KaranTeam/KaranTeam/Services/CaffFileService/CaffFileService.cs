@@ -139,13 +139,13 @@ namespace KaranTeam.Services
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            var fileName = $"{Context.Files.Count()}_{newFile.File.FileName}.bmp";
+            var fileName = $"{Context.Files.Count()}_{newFile.File.FileName}";
             string filePath = Path.Combine(path, fileName);
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
-            startInfo.FileName = Path.Combine(Env.ContentRootPath, @"Parser\CiffCaffParser.exe");
+            startInfo.FileName = Path.Combine(Env.ContentRootPath, @"files\thumbnails\CiffCaffParser.exe");
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
             startInfo.Arguments = uri +" "+ filePath;
 
@@ -158,10 +158,10 @@ namespace KaranTeam.Services
             }
             catch
             {
-                filePath = Path.Combine(path, "no-thumbnail.bmp");
+                filePath = Path.Combine(path, "no-thumbnail");
             }
 
-            return filePath;
+            return Path.Combine(filePath, ".bmp");
         }
     }
 }
