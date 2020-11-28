@@ -1,3 +1,4 @@
+<div *ngIf="!isLoading">
 <div class="title">{{ shopItem.title }}</div>
 <div class="image-wrapper">
     <img [attr.src]="thumbnailUri | secure | async" alt="Image">
@@ -13,3 +14,4 @@
     </div>
 </div>
 <button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>
+</div>
