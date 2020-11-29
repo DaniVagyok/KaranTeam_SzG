@@ -19,3 +19,4 @@ export interface ICommentMondel {
     content: string;
     creationDate: Date;
 }
+

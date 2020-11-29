@@ -9,7 +9,7 @@ import { IShopItemModel } from '../shared/models/shop-item.model';
 })
 export class MainPageService {
 
-  baseUrl = environment.baseUrl;
+  baseUrl = ''; //environment.baseUrl;
   constructor(
     private http: HttpClient
   ) { }
