@@ -32,7 +32,17 @@ export class DetailsPageComponent implements OnInit {
   }
 
   downloadImage() {
-    this.service.downloadCiffCaffFile(this.shopItemId); // ide is kell majd a subscribe
+    this.service.downloadCiffCaffFile(this.shopItemId).subscribe(res => {
+      let url = window.URL.createObjectURL(res);
+      let a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display: none');
+      a.href = url;
+      a.download = this.shopItem.title + '.caff';
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    });
   }
 
   addComment() {

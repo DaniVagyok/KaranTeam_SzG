@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IShopItemModel } from '../shared/models/shop-item.model';
 
@@ -35,16 +36,23 @@ export class MainPageService {
     return of(mock.find(x => x.id === shopItemId));
   }
 
+  // {size: 4002260, type: "application/octet-stream"}
   // Elméletileg kész
   downloadCiffCaffFile(shopItemId: number): Observable<any> {
     const url = this.baseUrl + `api/caff/${shopItemId}/download`;
-    return this.http.get<IShopItemModel>(url);
-  }
-
-  // Elméletileg kész
-  getThumbnail(shopItemId: number): Observable<any> {
-    const url = this.baseUrl + `api/caff/${shopItemId}/thumbnail`;
-    return this.http.get<IShopItemModel>(url);
+    return this.http.get(url, { responseType: 'blob' });
+    // return this.http
+    //   .get(url, {
+    //     responseType: 'blob',
+    //   }).pipe(
+    //     map(res => {
+    //       return new Blob([res], { type: 'application/pdf' });
+    //       return {
+    //         filename: row.name,
+    //         data: res.blob()
+    //       };
+    //     })
+    //   );
   }
 
   // Elméletileg kész
