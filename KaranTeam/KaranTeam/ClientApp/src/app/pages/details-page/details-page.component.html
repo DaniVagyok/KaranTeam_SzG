@@ -3,7 +3,7 @@
     <div class="image-wrapper">
         <img [attr.src]="thumbnailUri | secure | async" alt="Image">
     </div>
-    <button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>
+    <button mat-raised-button color="primary" (click)="downloadImage()">Download file</button>
     <div class="title">Feltöltötte: {{ shopItem.ownerName }}</div>
     <div class="description">Leírás: {{ shopItem.description }}</div>
     <input type="text" [(ngModel)]="commentToAdd" placeholder="Komment írása">

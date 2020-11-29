@@ -13,5 +13,5 @@
     </div>
 </div>
 <div class="download-button-wrapper">
-    <button mat-raised-button color="primary" (click)="downloadImage()">Download image</button>
+    <button mat-raised-button color="primary" (click)="downloadImage(); $event.stopPropagation()">Download file</button>
 </div>
