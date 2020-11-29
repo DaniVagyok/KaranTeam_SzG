@@ -76,9 +76,9 @@ export class MainPageService {
     return this.http.post<any>(url, formData);
   }
 
-  addComment(comm: string, shopItem: IShopItemModel): Observable<any> {
-    const url = this.baseUrl + `api/comment/${shopItem.id}`;
-    return this.http.put<any>(url, comm);
+  addComment(comment: string, shopItemId: number): Observable<any> {
+    const url = this.baseUrl + `api/comment/${shopItemId}`;
+    return this.http.put<any>(url, {content: comment});
   }
 }
 

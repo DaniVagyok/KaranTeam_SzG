@@ -35,12 +35,16 @@ export class DetailsPageComponent implements OnInit {
   }
 
   downloadImage() {
-    this.service.downloadCiffCaffFile(this.shopItemId);
+    this.service.downloadCiffCaffFile(this.shopItemId); // ide is kell majd a subscribe
   }
 
-  addComment(){
-    this.service.addComment(this.commentToAdd, this.shopItem);
-    this.commentToAdd='';
+  addComment() {
+    this.service.addComment(this.commentToAdd, this.shopItem.id).subscribe(() => {
+      this.service.getShopItemById(this.shopItemId).subscribe(res => {
+        this.shopItem = res;
+      });
+    });
+    this.commentToAdd = '';
   }
 
 }
