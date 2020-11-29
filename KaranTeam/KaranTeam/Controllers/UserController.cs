@@ -26,5 +26,8 @@ namespace KaranTeam.Controllers
 
         [HttpPut("{id}")]
         public async Task ModifyUser(UserDetailsModel modifiedUser) => await UserService.ModifyUser(modifiedUser);
+
+        [HttpGet("admin")]
+        public bool GetUserAdmin() => UserService.IsAdmin();
     }
 }

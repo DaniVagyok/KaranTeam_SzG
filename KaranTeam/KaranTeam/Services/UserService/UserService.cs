@@ -38,8 +38,19 @@ namespace KaranTeam.Services
 
         public async Task ModifyUser(UserDetailsModel modifiedUser)
         {
-            var modifiedEntity = modifiedUser.ToEntity();
-            Context.Users.Update(modifiedEntity);
+            var user = await Context.Users.SingleOrDefaultAsync(u => u.Id == modifiedUser.Id);
+            if (user.Id == UserManager.GetUserId() || await Context.Users.Where(u=>u.Id == UserManager.GetUserId() && u.IsAdmin == true).SingleOrDefaultAsync() != null)
+            {
+                user.UserName = modifiedUser.UserName;
+                user.NormalizedUserName = modifiedUser.UserName.ToUpper();
+                user.Email = modifiedUser.Email;
+                user.NormalizedEmail = modifiedUser.Email.ToUpper();
+            }
+            if (await Context.Users.Where(u => u.Id == UserManager.GetUserId() && u.IsAdmin == true).SingleOrDefaultAsync() != null)
+            {
+                user.IsAdmin = modifiedUser.IsAdmin;
+            }
+            Context.Users.Update(user);
             await Context.SaveChangesAsync();
         }
 
