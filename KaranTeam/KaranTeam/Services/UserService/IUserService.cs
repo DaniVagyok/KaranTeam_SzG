@@ -8,6 +8,6 @@ namespace KaranTeam.Services
         Task<UserDetailsModel> GetUserById();
         Task<UserDetailsModel> GetUserById(int userId);
         Task ModifyUser(UserDetailsModel modifiedUser);
-        bool IsAdmin();
+        Task<bool> IsAdmin();
     }
 }

@@ -9,11 +9,12 @@
     <input type="text" [(ngModel)]="commentToAdd" placeholder="Komment írása">
     <button class="btn btn-dark" (click)="addComment()">Megjegyzés írása</button>
     <div>Megjegyzések</div>
-    <div class="comments" *ngIf="shopItem && shopItem.comments">
-        <div class="comment-wrapper" *ngFor="let comment of shopItem.comments">
+    <div class="comments" *ngIf="shopItem && shopItem.fileComments">
+        <div class="comment-wrapper" *ngFor="let comment of shopItem.fileComments">
             <div class="comment-owner">{{ comment.ownerName }}</div>
-            <div class="comment">{{ comment.comment }} </div>
-            <div class="comment-date">{{ comment.date }}</div>
+            <div class="comment">{{ comment.content }} </div>
+            <div class="comment-date">{{ comment.creationDate }}</div>
+            <button (click)="deleteComment(comment.id)">Törlés</button>
         </div>
     </div>
 </div>

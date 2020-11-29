@@ -17,6 +17,7 @@ export class DetailsPageComponent implements OnInit {
   isLoading: boolean = true;
   commentToAdd: string;
   userData: User;
+  isAdmin: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private service: MainPageService,
@@ -25,13 +26,9 @@ export class DetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.shopItemId = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.profileService.getAdmin().subscribe(res => this.isAdmin = res);
     this.profileService.getUserData().subscribe(res => this.userData = res);
-    this.service.getShopItemById(this.shopItemId).subscribe(res => {
-      this.shopItem = res;
-      this.thumbnailUri = `api/caff/${this.shopItem.id}/thumbnail`;
-    },
-    error => console.log(error),
-    () => this.isLoading = false);
+    this.loadData();
   }
 
   downloadImage() {
@@ -47,4 +44,16 @@ export class DetailsPageComponent implements OnInit {
     this.commentToAdd = '';
   }
 
+  deleteComment(commentId: number) {
+    this.service.deleteComment(commentId).subscribe(() => this.loadData());
+  }
+
+  loadData() {
+    this.service.getShopItemById(this.shopItemId).subscribe(res => {
+      this.shopItem = res;
+      this.thumbnailUri = `api/caff/${this.shopItem.id}/thumbnail`;
+    },
+      error => console.log(error),
+      () => this.isLoading = false);
+  }
 }

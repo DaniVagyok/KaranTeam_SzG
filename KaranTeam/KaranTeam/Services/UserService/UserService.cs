@@ -54,9 +54,9 @@ namespace KaranTeam.Services
             await Context.SaveChangesAsync();
         }
 
-        public bool IsAdmin()
+        public async Task<bool> IsAdmin()
         {
-            var user = Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefault();
+            var user = await Context.Users.Where(u => u.Id == UserManager.GetUserId()).SingleOrDefaultAsync();
             if (user.IsAdmin)
                 return true;
             return false;

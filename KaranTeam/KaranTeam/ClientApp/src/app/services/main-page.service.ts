@@ -59,6 +59,11 @@ export class MainPageService {
     return this.http.delete<any>(url);
   }
 
+  deleteComment(commentId: number): Observable<void> {
+    const url = this.baseUrl + `api/comment/${commentId}`;
+    return this.http.delete<any>(url);
+  }
+
   // Elméletileg kész
   // Így kell form data-t feltölteni
   uploadShopItem(shopItem: IShopItemModel): Observable<void> {
@@ -78,7 +83,7 @@ export class MainPageService {
 
   addComment(comment: string, shopItemId: number): Observable<any> {
     const url = this.baseUrl + `api/comment/${shopItemId}`;
-    return this.http.put<any>(url, {content: comment});
+    return this.http.put<any>(url, { content: comment });
   }
 }
 

@@ -48,6 +48,11 @@ export class ProfileService {
   getLocalToken(): string {
     return localStorage.getItem(this.tokenString);
   }
+
+  getAdmin() {
+    const url = this.baseUrl + 'api/user/admin';
+    return this.http.get<boolean>(url);
+  }
 }
 
 const mock: User = {

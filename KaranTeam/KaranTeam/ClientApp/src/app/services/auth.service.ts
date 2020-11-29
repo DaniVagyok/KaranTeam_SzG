@@ -17,7 +17,7 @@ export class AuthService {
   private baseUrl = ''; // environment.baseUrl;
   private tokenString = 'token';
   constructor(private http: HttpClient,
-              private router: Router) { }
+    private router: Router) { }
 
   loginUser(user: User): any {
     const url = this.baseUrl + 'api/auth/login';
@@ -27,7 +27,7 @@ export class AuthService {
     );*/
   }
 
-  loggedIn(){
+  loggedIn() {
     return !!localStorage.getItem('token')
   }
 
