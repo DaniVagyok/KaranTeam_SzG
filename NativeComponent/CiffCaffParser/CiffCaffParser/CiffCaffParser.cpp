@@ -110,36 +110,34 @@ void generateBMP(vector<unsigned int> rgbVector, int width, int height, string o
         bih.biWidth = width;
         bih.biHeight = height;
 
-        FILE* file;
         string fileName = outputFileName + ".bmp";
 
-        file = fopen(fileName.c_str(), "wb");
+        ofstream file(fileName, ios::out | ios::binary);
         if (!file)
         {
             printf("Could not write file\n");
             throw;
         }
         /*Write headers*/
-        fwrite(&bfType, 1, sizeof(bfType), file);
-        fwrite(&bfh, 1, sizeof(bfh), file);
-        fwrite(&bih, 1, sizeof(bih), file);
+        file.write((char*) &bfType, sizeof(bfType));
+        file.write((char*)&bfh, sizeof(bfh));
+        file.write((char*)&bih, sizeof(bih));
         /*Write bitmap*/
         for (int i = (height * width * 3) - 1; i >= 0; i = i - 3) {
             unsigned int r = rgbVector[i];
             unsigned int g = rgbVector[i - 1];
             unsigned int b = rgbVector[i - 2];
-            fwrite(&r, 1, 1, file);
-            fwrite(&g, 1, 1, file);
-            fwrite(&b, 1, 1, file);
+            file.write((char*)&r, 1);
+            file.write((char*)&g, 1);
+            file.write((char*)&b, 1);
         }
-        fclose(file);
+        file.close();
     }
 }
 
 
 int main(int argc, char* argv[])
 {
-    string imageUrl;
     ifstream myfile;
     try
     {
@@ -160,7 +158,7 @@ int main(int argc, char* argv[])
             myfile.read((char*)&innerCaffBlock.length, sizeof(innerCaffBlock.length));
             if (innerCaffBlock.id == '\x02')
             {
-                CaffCredits caffCredits;
+                CaffCredits caffCredits; 
                 myfile.read((char*)&caffCredits.year, 2);
                 myfile.read((char*)&caffCredits.month, 1);
                 myfile.read((char*)&caffCredits.day, 1);
