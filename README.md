@@ -9,5 +9,4 @@ KaranTeam Számítógép-biztonság házi feladat
 
 ## Dokumentumok
 * [Specifikáció](https://github.com/DaniVagyok/KaranTeam_SzG/wiki/Specifikáció)
-* [Natív CAFF Parser](https://github.com/DaniVagyok/KaranTeam_SzG/wiki/Nat%C3%ADv-CAFF-Parser)
 * [Dokumentáció](https://github.com/DaniVagyok/KaranTeam_SzG/wiki/Dokumentáció)
