@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -84,52 +85,55 @@ struct CaffAnimation
 };
 
 void generateBMP(vector<unsigned int> rgbVector, int width, int height, string outputFileName) {
-    BITMAPFILEHEADER bfh;
-    BITMAPINFOHEADER bih;
+    size_t pixelCount = width * height * 3;
+    if (rgbVector.size() == pixelCount) {
+        BITMAPFILEHEADER bfh;
+        BITMAPINFOHEADER bih;
 
-    unsigned short bfType = 0x4d42;
-    bfh.bfReserved1 = 0;
-    bfh.bfReserved2 = 0;
-    bfh.bfOffBits = 0x36;
+        unsigned short bfType = 0x4d42;
+        bfh.bfReserved1 = 0;
+        bfh.bfReserved2 = 0;
+        bfh.bfOffBits = 0x36;
 
-    bih.biSize = sizeof(BITMAPINFOHEADER);
-    bih.biPlanes = 1;
-    bih.biBitCount = 24;
-    bih.biCompression = 0;
-    bih.biSizeImage = 0;
-    bih.biXPelsPerMeter = 5000;
-    bih.biYPelsPerMeter = 5000;
-    bih.biClrUsed = 0;
-    bih.biClrImportant = 0;
+        bih.biSize = sizeof(BITMAPINFOHEADER);
+        bih.biPlanes = 1;
+        bih.biBitCount = 24;
+        bih.biCompression = 0;
+        bih.biSizeImage = 0;
+        bih.biXPelsPerMeter = 5000;
+        bih.biYPelsPerMeter = 5000;
+        bih.biClrUsed = 0;
+        bih.biClrImportant = 0;
 
 
-    bfh.bfSize = 2 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + width * height * 3;
-    bih.biWidth = width;
-    bih.biHeight = height;
+        bfh.bfSize = 2 + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + width * height * 3;
+        bih.biWidth = width;
+        bih.biHeight = height;
 
-    FILE* file;
-    string fileName = outputFileName + ".bmp";
+        FILE* file;
+        string fileName = outputFileName + ".bmp";
 
-    file = fopen(fileName.c_str(), "wb");
-    if (!file)
-    {
-        printf("Could not write file\n");
-        throw;
+        file = fopen(fileName.c_str(), "wb");
+        if (!file)
+        {
+            printf("Could not write file\n");
+            throw;
+        }
+        /*Write headers*/
+        fwrite(&bfType, 1, sizeof(bfType), file);
+        fwrite(&bfh, 1, sizeof(bfh), file);
+        fwrite(&bih, 1, sizeof(bih), file);
+        /*Write bitmap*/
+        for (int i = (height * width * 3) - 1; i >= 0; i = i - 3) {
+            unsigned int r = rgbVector[i];
+            unsigned int g = rgbVector[i - 1];
+            unsigned int b = rgbVector[i - 2];
+            fwrite(&r, 1, 1, file);
+            fwrite(&g, 1, 1, file);
+            fwrite(&b, 1, 1, file);
+        }
+        fclose(file);
     }
-    /*Write headers*/
-    fwrite(&bfType, 1, sizeof(bfType), file);
-    fwrite(&bfh, 1, sizeof(bfh), file);
-    fwrite(&bih, 1, sizeof(bih), file);
-    /*Write bitmap*/
-    for (int i = (height * width * 3) - 1; i >= 0; i = i - 3) {
-        unsigned int r = rgbVector[i];
-        unsigned int g = rgbVector[i - 1];
-        unsigned int b = rgbVector[i - 2];
-        fwrite(&r, 1, 1, file);
-        fwrite(&g, 1, 1, file);
-        fwrite(&b, 1, 1, file);
-    }
-    fclose(file);
 }
 
 
@@ -163,8 +167,10 @@ int main(int argc, char* argv[])
                 myfile.read((char*)&caffCredits.hour, 1);
                 myfile.read((char*)&caffCredits.minute, 1);
                 myfile.read((char*)&caffCredits.creator_len, 8);
-                myfile.read((char*)&caffCredits.creator[0], caffCredits.creator_len);
 
+                if (caffCredits.creator_len < innerCaffBlock.length) {
+                    myfile.read((char*)&caffCredits.creator[0], caffCredits.creator_len);
+                }
             }
             if (innerCaffBlock.id == '\x03')
             {
